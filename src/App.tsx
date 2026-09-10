@@ -19,6 +19,7 @@ import { BookDemoModal } from './components/BookDemoModal';
 import { FreeTrialModal } from './components/FreeTrialModal';
 import { ApiAccessModal } from './components/ApiAccessModal';
 import { AuthModal } from './components/AuthModal';
+import { AnimatedChatBot } from './components/AnimatedChatBot';
 import { CheckCircle2, Sparkles, ArrowUp, Terminal } from 'lucide-react';
 
 export default function App() {
@@ -270,21 +271,21 @@ export default function App() {
         onLoginSuccess={handleLoginSuccess}
       />
 
-      {/* Floating Parallax Quick Action Controls on Scroll */}
+      {/* Floating Parallax Quick Action Controls on Scroll (Left Dock) */}
       {showScrollTop && (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 20 }}
-          className="fixed bottom-6 right-6 z-40 flex items-center gap-2"
+          className="fixed bottom-6 left-6 z-40 flex items-center gap-2"
         >
           <button
             onClick={() => handleLaunchLiveHubTab('pos')}
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#F97316] text-white text-xs font-bold shadow-xl hover:bg-[#EA580C] transition-all transform hover:-translate-y-0.5 active:translate-y-0"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#18181B] text-white text-xs font-bold shadow-xl hover:bg-stone-900 border border-stone-800 transition-all transform hover:-translate-y-0.5 active:translate-y-0"
             title="Open Cloud POS Terminal"
             id="floating-dock-launch-pos"
           >
-            <Terminal className="w-3.5 h-3.5" />
+            <Terminal className="w-3.5 h-3.5 text-[#F97316]" />
             <span>Launch POS Hub</span>
           </button>
 
@@ -298,6 +299,15 @@ export default function App() {
           </button>
         </motion.div>
       )}
+
+      {/* Interactive Animated ByteBot AI Chat Assistant */}
+      <AnimatedChatBot
+        onLaunchTerminal={() => handleLaunchLiveHubTab('pos')}
+        onOpenOrderSystem={() => setActiveView('order-system')}
+        onOpenBookDemo={() => setBookDemoOpen(true)}
+        onOpenFreeTrial={() => setFreeTrialOpen(true)}
+        onOpenVideoDemo={() => setVideoDemoOpen(true)}
+      />
     </div>
   );
 }
