@@ -148,3 +148,15 @@ export interface ZATCAInvoice {
   cryptographicHash: string;
   fatooraStatus: 'CLEARED' | 'REPORTED';
 }
+
+export interface AuthUser {
+  id: string;
+  name: string;
+  email: string;
+  phone?: string;
+  role: 'Store Manager' | 'Cashier' | 'Admin' | 'Chef' | 'Student / Customer';
+  businessName?: string;
+  rollNo?: string;
+  avatar?: string;
+  signedAt: string;
+}
