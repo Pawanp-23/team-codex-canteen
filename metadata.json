@@ -1,6 +1,6 @@
 {
   "name": "PosBytz Cloud ERP",
-  "description": "Cloud ERP & POS built for Indian restaurant chains, cafes, and retail. Engineered by Pawan Patil • Team CodeX with animated ByteBot AI assistant, UPI payments, GST e-invoicing, and live inventory depletion.",
+  "description": "Cloud ERP & POS built for Indian restaurant chains, cafes, and retail. Engineered by Pawan Patil • Team CodeX with automated kitchen packaging visual video, animated ByteBot AI assistant, UPI payments, GST e-invoicing, and live recipe depletion.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

@@ -129,6 +129,7 @@ export default function App() {
         onOpenBookDemo={() => setBookDemoOpen(true)}
         onOpenSignIn={() => openAuth('signin')}
         onNavigateHubTab={(tab) => handleLaunchLiveHubTab(tab)}
+        onOpenVideoDemo={() => setVideoDemoOpen(true)}
         currentUser={currentUser}
         onOpenAuthModal={(mode) => openAuth(mode || 'signin')}
         onLogout={handleLogout}
@@ -172,6 +173,7 @@ export default function App() {
           <OperationsDarkCanvas
             lang={lang}
             onLaunchHubTab={handleLaunchLiveHubTab}
+            onOpenVideoDemo={() => setVideoDemoOpen(true)}
           />
 
           {/* Complete 6-Module Bento Grid */}
@@ -253,6 +255,7 @@ export default function App() {
           lang={lang}
           onClose={() => setVideoDemoOpen(false)}
           onLaunchLiveHub={() => handleLaunchLiveHubTab('pos')}
+          onOpenBookDemo={() => setBookDemoOpen(true)}
         />
       )}
 

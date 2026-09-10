@@ -119,11 +119,11 @@ export const AnimatedChatBot: React.FC<AnimatedChatBotProps> = ({
       timestamp: 'Just now',
       emotion: 'happy',
       suggestedQuestions: [
+        '📹 Watch Automated Packaging Video',
         '🚀 Test the live POS Terminal',
         '🥘 How does Recipe Stock Depletion work?',
         '⚡ UPI QR & Soundbox Integration',
         '🇮🇳 Indian GST & Invoicing Support',
-        '👨‍🍳 Who engineered PosBytz?',
       ],
     },
   ];
@@ -197,6 +197,39 @@ export const AnimatedChatBot: React.FC<AnimatedChatBotProps> = ({
     const q = query.toLowerCase();
     const id = `bot-${Date.now()}`;
     const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+    // 0. Automated Kitchen Resources Packaging & Dispatch Video Visual
+    if (
+      q.includes('video') ||
+      q.includes('pack') ||
+      q.includes('conveyor') ||
+      q.includes('dispatch') ||
+      q.includes('automatic') ||
+      q.includes('kitchen') ||
+      q.includes('send') ||
+      q.includes('deliver') ||
+      q.includes('tour')
+    ) {
+      return {
+        id,
+        sender: 'bot',
+        text: 'I have an interactive 4K video simulation ready for you! It visualizes the entire automated kitchen pipeline: live recipe ingredient depletion from hoppers, robotic induction cooking, tamper-proof hermetic clamshell sealing, dynamic UPI QR thermal labeling, and express courier dispatch right to the customer doorstep.',
+        timestamp,
+        emotion: 'happy',
+        action: onOpenVideoDemo
+          ? {
+              label: '▶ Watch Automated Packaging Video',
+              icon: 'demo',
+              handler: onOpenVideoDemo,
+            }
+          : undefined,
+        suggestedQuestions: [
+          'How does Recipe BOM stock depletion work?',
+          'Launch Live POS Terminal',
+          'Tell me about Tamper-Proof Sealing',
+        ],
+      };
+    }
 
     // 1. POS Terminal & Hands-on testing
     if (q.includes('pos') || q.includes('terminal') || q.includes('test') || q.includes('register') || q.includes('billing')) {
@@ -682,6 +715,12 @@ export const AnimatedChatBot: React.FC<AnimatedChatBotProps> = ({
                   <span className="text-[10px] font-bold text-stone-600 uppercase tracking-wider shrink-0 mr-1">
                     Quick:
                   </span>
+                  <button
+                    onClick={() => handleSendMessage('Show me the automated packaging and delivery video')}
+                    className="shrink-0 px-2.5 py-1 rounded-full bg-orange-100 hover:bg-orange-200 border border-orange-300 text-[#9A3412] text-[11px] font-bold transition-all"
+                  >
+                    📹 Packaging Video
+                  </button>
                   <button
                     onClick={() => handleSendMessage('Launch Live POS Terminal')}
                     className="shrink-0 px-2.5 py-1 rounded-full bg-stone-100 hover:bg-orange-50 hover:text-[#F97316] hover:border-orange-300 border border-stone-200 text-stone-700 text-[11px] font-medium transition-all"

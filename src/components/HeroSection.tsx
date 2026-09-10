@@ -137,11 +137,17 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
             <button
               onClick={onOpenVideoDemo}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-full bg-white text-stone-800 font-bold text-sm border border-stone-200/90 shadow-sm hover:bg-stone-50 hover:border-stone-300 transition-all duration-150 transform hover:-translate-y-0.5 active:translate-y-0"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-full bg-white text-stone-900 font-bold text-sm border-2 border-stone-200/90 shadow-sm hover:bg-stone-50 hover:border-orange-300 transition-all duration-150 transform hover:-translate-y-0.5 active:translate-y-0 group"
               id="hero-watch-demo-btn"
             >
-              <PlayCircle className="w-5 h-5 text-[#F97316] fill-orange-100" />
-              <span>Watch 2-Min Demo</span>
+              <div className="relative flex items-center justify-center">
+                <PlayCircle className="w-5 h-5 text-[#F97316] fill-orange-100 group-hover:scale-110 transition-transform" />
+                <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
+              </div>
+              <span>Watch Packaging Video</span>
+              <span className="px-2 py-0.5 rounded-full bg-orange-100 text-orange-950 text-[10px] font-extrabold uppercase tracking-wider font-mono">
+                Automated Visual
+              </span>
             </button>
           </div>
 

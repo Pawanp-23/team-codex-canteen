@@ -24,6 +24,7 @@ interface HeaderProps {
   onOpenBookDemo: () => void;
   onOpenSignIn: () => void;
   onNavigateHubTab?: (tab: HubTab) => void;
+  onOpenVideoDemo?: () => void;
   currentUser?: AuthUser | null;
   onOpenAuthModal?: (mode?: 'signin' | 'signup') => void;
   onLogout?: () => void;
@@ -35,6 +36,7 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenBookDemo,
   onOpenSignIn,
   onNavigateHubTab,
+  onOpenVideoDemo,
   currentUser,
   onOpenAuthModal,
   onLogout,
@@ -114,6 +116,16 @@ export const Header: React.FC<HeaderProps> = ({
               </span>
               <span>⚡ Live ERP</span>
             </button>
+            {onOpenVideoDemo && (
+              <button
+                onClick={onOpenVideoDemo}
+                className="px-3 py-1 rounded-full transition-all flex items-center gap-1.5 text-stone-700 hover:text-[#F97316] hover:bg-orange-50 font-bold"
+                title="Watch Automated Kitchen Resources & Packaging Video"
+                id="header-nav-video-btn"
+              >
+                <span>▶ Packaging Video</span>
+              </button>
+            )}
           </div>
         </div>
 
@@ -601,6 +613,18 @@ export const Header: React.FC<HeaderProps> = ({
           </button>
 
           <div className="pt-2 border-t border-stone-100 flex flex-col gap-2">
+            {onOpenVideoDemo && (
+              <button
+                onClick={() => {
+                  onOpenVideoDemo();
+                  setMobileMenuOpen(false);
+                }}
+                className="w-full py-2.5 rounded-xl text-center font-bold text-stone-900 bg-orange-100 hover:bg-orange-200 border border-orange-300 flex items-center justify-center gap-2"
+                id="mobile-nav-video-btn"
+              >
+                <span>▶ Watch Automated Packaging Video</span>
+              </button>
+            )}
             <button
               onClick={() => {
                 onOpenBookDemo();

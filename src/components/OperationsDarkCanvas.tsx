@@ -7,10 +7,12 @@ import { CheckCircle2, ChevronRight, Terminal, Sparkles } from 'lucide-react';
 interface OperationsDarkCanvasProps {
   lang?: Language;
   onLaunchHubTab: (tab: HubTab) => void;
+  onOpenVideoDemo?: () => void;
 }
 
 export const OperationsDarkCanvas: React.FC<OperationsDarkCanvasProps> = ({
   onLaunchHubTab,
+  onOpenVideoDemo,
 }) => {
   const [activeTabIdx, setActiveTabIdx] = useState(0);
   const containerRef = useRef<HTMLElement>(null);
@@ -98,6 +100,17 @@ export const OperationsDarkCanvas: React.FC<OperationsDarkCanvasProps> = ({
               </button>
             );
           })}
+
+          {onOpenVideoDemo && (
+            <button
+              onClick={onOpenVideoDemo}
+              className="px-5 py-2.5 rounded-full text-[14px] font-bold bg-gradient-to-r from-orange-500/20 to-amber-500/20 text-orange-400 hover:text-white hover:bg-orange-500 border border-orange-500/40 transition-all duration-200 cursor-pointer flex items-center gap-2 ml-auto shadow-md"
+              id="ops-packaging-video-btn"
+            >
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+              <span>▶ Watch Automated Packaging Visual (Video)</span>
+            </button>
+          )}
         </div>
 
         {/* Tab Content Grid: Narrative + Hardware Mockup */}
