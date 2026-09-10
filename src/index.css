@@ -6,24 +6,95 @@
     transform: translateY(0px);
   }
   50% {
-    transform: translateY(-20px);
+    transform: translateY(-16px);
+  }
+}
+
+@keyframes float-reverse {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(16px);
+  }
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05);
   }
 }
 
 .animate-float {
-  animation: float 4s ease-in-out infinite;
+  animation: float 5s ease-in-out infinite;
+}
+
+.animate-float-reverse {
+  animation: float-reverse 6s ease-in-out infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 8s ease-in-out infinite;
 }
 
 @layer base {
-  html, body {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
     margin: 0;
     padding: 0;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
   
-  h1, h2, h3, h4, .font-heading, .font-display {
+  h1, h2, h3, h4, .font-heading {
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    letter-spacing: -0.025em;
   }
+
+  .font-display {
+    font-family: 'Outfit', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    letter-spacing: -0.035em;
+  }
+
+  .font-body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+}
+
+/* Atmospheric Background Gradients & Patterns */
+.bg-ambient-light {
+  background-color: #FAF8F5;
+  background-image: 
+    radial-gradient(at 20% 15%, rgba(249, 115, 22, 0.07) 0px, transparent 50%),
+    radial-gradient(at 80% 20%, rgba(234, 88, 12, 0.05) 0px, transparent 55%),
+    radial-gradient(at 50% 80%, rgba(254, 215, 170, 0.1) 0px, transparent 60%);
+}
+
+.bg-dot-matrix {
+  background-image: radial-gradient(rgba(120, 113, 108, 0.15) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.bg-dot-matrix-dark {
+  background-image: radial-gradient(rgba(249, 115, 22, 0.18) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.bg-grid-subtle {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
 }
 
 /* Custom design tokens from PosBytz design system */
@@ -35,7 +106,7 @@
   --slate-surface: #0F172A;
   --slate-card: #18181B;
   --slate-border: #27272A;
-  --porcelain-bg: #FAFAFA;
+  --porcelain-bg: #FAF8F5;
 }
 
 .material-symbols-outlined {

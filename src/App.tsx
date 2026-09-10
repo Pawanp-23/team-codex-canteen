@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { motion, useScroll } from 'motion/react';
 import { Language, AppView, HubTab, AuthUser } from './types';
 import { Header } from './components/Header';
 import { HeroSection } from './components/HeroSection';
@@ -18,12 +19,28 @@ import { BookDemoModal } from './components/BookDemoModal';
 import { FreeTrialModal } from './components/FreeTrialModal';
 import { ApiAccessModal } from './components/ApiAccessModal';
 import { AuthModal } from './components/AuthModal';
-import { CheckCircle2, Sparkles } from 'lucide-react';
+import { CheckCircle2, Sparkles, ArrowUp, Terminal } from 'lucide-react';
 
 export default function App() {
   const [lang, setLang] = useState<Language>('en');
   const [activeView, setActiveView] = useState<AppView>('landing');
   const [hubInitialTab, setHubInitialTab] = useState<HubTab>('pos');
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  // Global Parallax Scroll Tracker
+  const { scrollYProgress } = useScroll();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 400) {
+        setShowScrollTop(true);
+      } else {
+        setShowScrollTop(false);
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Authentication state
   const [currentUser, setCurrentUser] = useState<AuthUser | null>(() => {
@@ -86,6 +103,12 @@ export default function App() {
 
   return (
     <div className="min-h-screen font-sans bg-[#fbf8ff] text-[#1a1b22]" dir="ltr">
+      {/* Global Parallax Scroll Progress Bar */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#F97316] via-[#EA580C] to-amber-500 z-50 origin-left pointer-events-none"
+        style={{ scaleX: scrollYProgress }}
+      />
+
       {/* Toast Notification Banner */}
       {toastMessage && (
         <div className="fixed top-24 right-6 z-50 p-4 rounded-2xl bg-stone-900 text-white shadow-2xl border border-stone-700 flex items-center gap-3 animate-in fade-in slide-in-from-top-4">
@@ -113,19 +136,11 @@ export default function App() {
       {/* Main View Router */}
       {activeView === 'landing' && (
         <main className="pt-20">
-          {/* Integrated Floating Food Hero Component (Placed right before main Hero Section) */}
-          <section className="relative border-b border-stone-200/80 bg-white">
-            <div className="max-w-[1280px] mx-auto px-4 pt-4 flex items-center justify-between">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 border border-orange-200 text-orange-800 text-[11px] font-bold">
-                <Sparkles className="w-3 h-3 text-[#F97316]" />
-                <span>UI Showcase: hero-section-7.tsx Floating Food Hero</span>
-              </div>
-              <span className="text-[11px] text-stone-400 hidden sm:inline font-mono">
-                shadcn/ui compatible • Tailwind 4
-              </span>
-            </div>
-            <FloatingFoodHeroDemo />
-          </section>
+          {/* Integrated Floating Food Hero Component with Multi-layer Parallax */}
+          <FloatingFoodHeroDemo
+            onLaunchTerminal={() => handleLaunchLiveHubTab('pos')}
+            onWatchDemo={() => setVideoDemoOpen(true)}
+          />
 
           {/* Hero Section with Pawan Patil & Team CodeX Attribution */}
           <HeroSection
@@ -254,6 +269,35 @@ export default function App() {
         onClose={() => setAuthModalOpen(false)}
         onLoginSuccess={handleLoginSuccess}
       />
+
+      {/* Floating Parallax Quick Action Controls on Scroll */}
+      {showScrollTop && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 20 }}
+          className="fixed bottom-6 right-6 z-40 flex items-center gap-2"
+        >
+          <button
+            onClick={() => handleLaunchLiveHubTab('pos')}
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#F97316] text-white text-xs font-bold shadow-xl hover:bg-[#EA580C] transition-all transform hover:-translate-y-0.5 active:translate-y-0"
+            title="Open Cloud POS Terminal"
+            id="floating-dock-launch-pos"
+          >
+            <Terminal className="w-3.5 h-3.5" />
+            <span>Launch POS Hub</span>
+          </button>
+
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            className="w-10 h-10 rounded-full bg-stone-900/90 text-white flex items-center justify-center shadow-xl hover:bg-stone-950 transition-all border border-stone-700 cursor-pointer"
+            title="Back to top"
+            id="floating-dock-back-to-top"
+          >
+            <ArrowUp className="w-4 h-4" />
+          </button>
+        </motion.div>
+      )}
     </div>
   );
 }

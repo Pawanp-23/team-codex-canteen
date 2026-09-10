@@ -1,45 +1,77 @@
-import { FloatingFoodHero } from '@/components/ui/hero-section-7'; // Adjust the import path
+import React from 'react';
+import { FloatingFoodHero, FloatingFoodItem } from '@/components/ui/hero-section-7';
 
-export default function FloatingFoodHeroDemo() {
-  const heroImages = [
+interface FloatingFoodHeroDemoProps {
+  onLaunchTerminal?: () => void;
+  onWatchDemo?: () => void;
+}
+
+export default function FloatingFoodHeroDemo({
+  onLaunchTerminal,
+  onWatchDemo,
+}: FloatingFoodHeroDemoProps) {
+  const curatedFoodItems: FloatingFoodItem[] = [
     {
-      src: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&auto=format&fit=crop&q=80',
-      alt: 'A delicious cheeseburger',
-      className: 'w-40 sm:w-56 md:w-64 lg:w-72 top-10 left-4 sm:left-10 md:top-20 md:left-20 animate-float',
+      id: 'burger-card',
+      src: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&auto=format&fit=crop&q=80',
+      alt: 'Artisan Gourmet Cheeseburger',
+      title: 'Truffle Smash Burger',
+      tag: '🔥 8m Prep • Kitchen KDS',
+      price: '₹ 380',
+      positionClass: 'top-6 left-3 sm:left-6 md:top-10 md:left-10 lg:left-16',
+      parallaxSpeed: -85,
+      sizeClass: 'w-36 sm:w-44 md:w-52 lg:w-56',
+      floatDelay: 0,
     },
     {
-      src: 'https://images.unsplash.com/photo-1541696432-82c6da8ce7bf?w=400&auto=format&fit=crop&q=80',
-      alt: 'A bamboo steamer with dumplings',
-      className: 'w-28 sm:w-36 md:w-48 top-10 right-4 sm:right-10 md:top-16 md:right-16 animate-float',
+      id: 'dimsum-card',
+      src: 'https://images.unsplash.com/photo-1541696432-82c6da8ce7bf?w=600&auto=format&fit=crop&q=80',
+      alt: 'Steaming Bamboo Bao Dim Sum',
+      title: 'Crystal Prawn Dumplings',
+      tag: '⭐ 4.9 Rating • 1.2k Orders',
+      price: '₹ 320',
+      positionClass: 'top-6 right-3 sm:right-6 md:top-10 md:right-10 lg:right-16',
+      parallaxSpeed: -120,
+      sizeClass: 'w-36 sm:w-44 md:w-52 lg:w-56',
+      floatDelay: 0.5,
     },
     {
-      src: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=400&auto=format&fit=crop&q=80',
-      alt: 'A slice of pizza',
-      className: 'w-32 sm:w-40 md:w-56 bottom-8 right-5 sm:right-10 md:bottom-16 md:right-20 animate-float',
+      id: 'pizza-card',
+      src: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&auto=format&fit=crop&q=80',
+      alt: 'Wood-Fired Neapolitan Pizza',
+      title: 'Smoked Bufala Pizza',
+      tag: '⚡ Table 04 • Paid via UPI',
+      price: '₹ 520',
+      positionClass: 'bottom-6 right-3 sm:right-6 md:bottom-10 md:right-10 lg:right-16',
+      parallaxSpeed: 70,
+      sizeClass: 'w-36 sm:w-44 md:w-52 lg:w-56',
+      floatDelay: 1,
     },
     {
-      src: 'https://images.unsplash.com/photo-1509722747041-616f39b57569?w=300&auto=format&fit=crop&q=80',
-      alt: 'A fresh croissant pastry',
-      className: 'w-16 sm:w-20 top-1/4 left-1/3 animate-float',
-    },
-    {
-      src: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=300&auto=format&fit=crop&q=80',
-      alt: 'Coffee cup',
-      className: 'w-16 sm:w-20 top-1/2 right-1/4 animate-float',
-    },
-    {
-      src: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?w=300&auto=format&fit=crop&q=80',
-      alt: 'Fresh salad bowl',
-      className: 'w-16 sm:w-20 top-3/4 left-1/4 animate-float',
+      id: 'salad-card',
+      src: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?w=600&auto=format&fit=crop&q=80',
+      alt: 'Crisp Garden Harvest Bowl',
+      title: 'Avocado Crunch Salad',
+      tag: '🌱 Inventory Auto-Deducted',
+      price: '₹ 290',
+      positionClass: 'bottom-6 left-3 sm:left-6 md:bottom-10 md:left-10 lg:left-16',
+      parallaxSpeed: 100,
+      sizeClass: 'w-36 sm:w-44 md:w-52 lg:w-56',
+      floatDelay: 1.5,
     },
   ];
 
   return (
     <div className="w-full">
       <FloatingFoodHero
-        title="Better food for more people"
-        description="For over a decade, we've enabled our customers to discover new tastes, delivered right to their doorstep."
-        images={heroImages}
+        title="Better Food Operations for Growing Kitchens"
+        highlightedWord="Better Food"
+        description="Powering Indian restaurants, cafes, and multi-outlet cloud kitchens with lightning-fast cloud POS billing, automatic ingredient depletion, and seamless kitchen dispatch."
+        items={curatedFoodItems}
+        primaryCtaText="Launch POS Terminal"
+        onPrimaryCta={onLaunchTerminal}
+        secondaryCtaText="Watch Live Demo"
+        onSecondaryCta={onWatchDemo}
       />
     </div>
   );
