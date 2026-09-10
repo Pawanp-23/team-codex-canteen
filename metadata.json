@@ -1,0 +1,6 @@
+{
+  "name": "PosBytz Cloud ERP",
+  "description": "The Cloud ERP Software built for restaurant chains and retail commerce. Unifying POS, inventory, omnichannel e-commerce, ZATCA Phase 2 accounting, and kitchen operations.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
