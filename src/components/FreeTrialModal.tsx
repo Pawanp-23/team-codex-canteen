@@ -4,19 +4,17 @@ import { X, Sparkles, CheckCircle2, ArrowRight } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 interface FreeTrialModalProps {
-  lang: Language;
+  lang?: Language;
   onClose: () => void;
   onLaunchLiveHub: () => void;
 }
 
 export const FreeTrialModal: React.FC<FreeTrialModalProps> = ({
-  lang,
   onClose,
   onLaunchLiveHub,
 }) => {
-  const [brandSubdomain, setBrandSubdomain] = useState('sultan-roastery');
+  const [brandSubdomain, setBrandSubdomain] = useState('chai-point');
   const [created, setCreated] = useState(false);
-  const isAr = lang === 'ar';
 
   const handleCreateTrial = (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,7 +38,7 @@ export const FreeTrialModal: React.FC<FreeTrialModalProps> = ({
           <div className="flex items-center gap-2">
             <Sparkles className="w-5 h-5 text-[#F97316]" />
             <h3 className="text-base font-bold text-white font-heading">
-              {isAr ? 'تجربة سحابية مجانية (14 يوماً)' : '14-Day Full Cloud Trial'}
+              14-Day Full Cloud Trial
             </h3>
           </div>
           <button
@@ -57,15 +55,13 @@ export const FreeTrialModal: React.FC<FreeTrialModalProps> = ({
               <CheckCircle2 className="w-6 h-6" />
             </div>
             <h4 className="text-lg font-bold text-white font-heading">
-              {isAr ? 'تم تجهيز نطاقك السحابي بنجاح!' : 'Cloud Workspace Provisioned!'}
+              Cloud Workspace Provisioned!
             </h4>
             <div className="my-4 p-3.5 rounded-xl bg-stone-900 border border-stone-800 font-mono text-xs text-orange-400">
               https://{brandSubdomain}.posbytz.cloud
             </div>
             <p className="text-xs text-stone-400 max-w-xs mx-auto mb-5">
-              {isAr
-                ? 'تم تجهيز قاعدة البيانات، والامتثال لزاتكا، ونظام الكاشير. يمكنك الآن الدخول مباشرة.'
-                : 'ZATCA Phase 2 sandbox, inventory matrix, and POS counter are activated for your trial.'}
+              Indian GST sandbox, UPI QR billing, and counter POS are activated for your free trial.
             </p>
             <button
               onClick={() => {
@@ -74,7 +70,7 @@ export const FreeTrialModal: React.FC<FreeTrialModalProps> = ({
               }}
               className="w-full py-3 rounded-full bg-[#F97316] text-white text-xs font-bold hover:bg-[#EA580C] shadow-lg flex items-center justify-center gap-2 cursor-pointer"
             >
-              <span>{isAr ? 'دخول لوحة التحكم المباشرة الآن' : 'Launch Workspace Terminal'}</span>
+              <span>Launch Workspace Terminal</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
@@ -82,7 +78,7 @@ export const FreeTrialModal: React.FC<FreeTrialModalProps> = ({
           <form onSubmit={handleCreateTrial} className="mt-5 space-y-4 text-xs">
             <div>
               <label className="block font-bold text-stone-300 mb-1">
-                {isAr ? 'اسم النطاق السحابي لعلامتك' : 'Brand Cloud Subdomain'}
+                Brand Cloud Subdomain
               </label>
               <div className="flex items-center rounded-xl bg-stone-900 border border-stone-800 px-3 py-2.5">
                 <input
@@ -99,7 +95,7 @@ export const FreeTrialModal: React.FC<FreeTrialModalProps> = ({
 
             <div>
               <label className="block font-bold text-stone-300 mb-1">
-                {isAr ? 'البريد الإلكتروني للإدارة' : 'Admin Email'}
+                Admin Email
               </label>
               <input
                 type="email"
@@ -110,14 +106,14 @@ export const FreeTrialModal: React.FC<FreeTrialModalProps> = ({
             </div>
 
             <div className="p-3 rounded-xl bg-stone-900/60 border border-stone-800 text-[11px] text-stone-400">
-              ✓ Includes 1 POS Terminal + KDS Kitchen Screen + ZATCA Phase 2 Sandbox
+              ✓ Includes 1 POS Terminal + KDS Kitchen Screen + Indian GST E-Invoicing Sandbox
             </div>
 
             <button
               type="submit"
               className="w-full py-3 rounded-full bg-[#F97316] text-white font-bold text-xs shadow-lg hover:bg-[#EA580C] transition-all cursor-pointer"
             >
-              {isAr ? 'إنشاء المساحة السحابية وتفعيل التجربة' : 'Create Free 14-Day Workspace'}
+              Create Free 14-Day Workspace
             </button>
           </form>
         )}

@@ -26,12 +26,11 @@ import {
 } from 'lucide-react';
 
 interface CoreOrderSystemProps {
-  lang: Language;
+  lang?: Language;
   onReturnToHome?: () => void;
 }
 
 export const CoreOrderSystem: React.FC<CoreOrderSystemProps> = ({
-  lang,
   onReturnToHome,
 }) => {
   // Navigation tabs for the 6 core requirements
@@ -59,8 +58,6 @@ export const CoreOrderSystem: React.FC<CoreOrderSystemProps> = ({
   // Category filter for Menu Page
   const [menuFilter, setMenuFilter] = useState<string>('all');
   const [menuSearch, setMenuSearch] = useState<string>('');
-
-  const isAr = lang === 'ar';
 
   // Selected item reference
   const currentSelectedItem = menuItems.find((m) => m.id === selectedItemId) || menuItems[0];
@@ -179,7 +176,7 @@ export const CoreOrderSystem: React.FC<CoreOrderSystemProps> = ({
     const matchesCat = menuFilter === 'all' || item.category === menuFilter;
     const matchesSearch =
       item.name.toLowerCase().includes(menuSearch.toLowerCase()) ||
-      (item.nameAr && item.nameAr.includes(menuSearch));
+      item.category.toLowerCase().includes(menuSearch.toLowerCase());
     return matchesCat && matchesSearch;
   });
 
@@ -403,7 +400,7 @@ export const CoreOrderSystem: React.FC<CoreOrderSystemProps> = ({
                       </div>
 
                       <div className="absolute bottom-3 left-3 bg-black/75 backdrop-blur-md px-3 py-1 rounded-xl text-white font-mono font-bold text-xs">
-                        ₹ / AED {item.price.toFixed(2)}
+                        ₹ {item.price.toFixed(2)}
                       </div>
                     </div>
 
@@ -414,11 +411,6 @@ export const CoreOrderSystem: React.FC<CoreOrderSystemProps> = ({
                           <h4 className="font-extrabold text-base text-stone-900 font-heading">
                             {item.name}
                           </h4>
-                          {item.nameAr && (
-                            <div className="text-xs text-stone-500 font-arabic mt-0.5">
-                              {item.nameAr}
-                            </div>
-                          )}
                         </div>
                         <span className="text-[11px] font-semibold text-stone-400 uppercase tracking-wider px-2 py-0.5 rounded bg-stone-100">
                           {item.category}
@@ -674,7 +666,7 @@ export const CoreOrderSystem: React.FC<CoreOrderSystemProps> = ({
                     {currentSelectedItem.name} (Unit Price)
                   </span>
                   <span className="font-mono text-stone-200">
-                    ₹ / AED {unitPrice.toFixed(2)}
+                    ₹ {unitPrice.toFixed(2)}
                   </span>
                 </div>
 
@@ -693,7 +685,7 @@ export const CoreOrderSystem: React.FC<CoreOrderSystemProps> = ({
                     </span>
                   </div>
                   <div className="text-2xl sm:text-3xl font-extrabold text-[#F97316] font-mono">
-                    ₹ / AED {calculatedTotal.toFixed(2)}
+                    ₹ {calculatedTotal.toFixed(2)}
                   </div>
                 </div>
               </div>
@@ -767,7 +759,7 @@ export const CoreOrderSystem: React.FC<CoreOrderSystemProps> = ({
               <div className="flex justify-between py-2 border-b border-stone-100 bg-orange-50/50 px-2 rounded-xl">
                 <span className="font-bold text-stone-800">Auto-Calculated Total:</span>
                 <span className="font-mono font-extrabold text-base text-[#F97316]">
-                  ₹ / AED {confirmedOrder.totalAmount.toFixed(2)}
+                  ₹ {confirmedOrder.totalAmount.toFixed(2)}
                 </span>
               </div>
               <div className="flex justify-between py-1.5">

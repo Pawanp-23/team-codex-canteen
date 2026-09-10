@@ -4,30 +4,22 @@ import { TESTIMONIALS } from '../data/content';
 import { Star, CheckCircle2 } from 'lucide-react';
 
 interface TestimonialsSectionProps {
-  lang: Language;
+  lang?: Language;
 }
 
-export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
-  lang,
-}) => {
-  const isAr = lang === 'ar';
-
+export const TestimonialsSection: React.FC<TestimonialsSectionProps> = () => {
   return (
     <section className="py-20 md:py-28 bg-[#fbf8ff]" id="testimonials-section">
       <div className="max-w-[1280px] mx-auto px-4 md:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-[11px] font-bold text-[#F97316] uppercase tracking-wider block mb-2 font-heading">
-            {isAr ? 'أثر مثبت بالأرقام' : 'Proven Impact'}
+            Proven Impact
           </span>
           <h2 className="text-[28px] md:text-[40px] leading-[34px] md:leading-[48px] font-bold text-[#1a1b22] tracking-tight font-heading">
-            {isAr
-              ? 'مصمم للعمليات التي تتحرك بسرعة فائقة'
-              : 'Built for Operations That Move Fast'}
+            Built for Operations That Move Fast
           </h2>
           <p className="mt-4 text-[16px] md:text-[18px] leading-[26px] md:leading-[28px] text-[#52525B]">
-            {isAr
-              ? 'اكتشف لماذا تعتمد كبرى سلاسل المطاعم والمقاهي المختصة ومجموعات التجزئة على بوس بايتز يومياً.'
-              : 'Discover why premier franchise operators, specialty roasters, and retail groups rely on PosBytz daily.'}
+            Discover why premier franchise operators, specialty cafes, and retail chains across India rely on PosBytz daily.
           </p>
         </div>
 
@@ -46,7 +38,7 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
                 </div>
 
                 <p className="text-[15px] leading-[25px] text-[#1a1b22] font-medium mb-6">
-                  {isAr ? t.quoteAr : t.quote}
+                  {t.quote}
                 </p>
               </div>
 

@@ -1,28 +1,26 @@
 import React, { useState } from 'react';
-import { Language, Integration } from '../types';
+import { Language } from '../types';
 import { INTEGRATIONS } from '../data/content';
 import { Code2, ArrowUpRight, CheckCircle } from 'lucide-react';
 
 interface IntegrationsSectionProps {
-  lang: Language;
+  lang?: Language;
   onOpenApiModal: () => void;
   onOpenBookDemo: () => void;
 }
 
 export const IntegrationsSection: React.FC<IntegrationsSectionProps> = ({
-  lang,
   onOpenApiModal,
   onOpenBookDemo,
 }) => {
   const [filter, setFilter] = useState<string>('all');
-  const isAr = lang === 'ar';
 
   const filterTabs = [
-    { id: 'all', label: isAr ? 'كافة التكاملات' : 'All Integrations' },
-    { id: 'payments', label: isAr ? 'المدفوعات والتقسيط' : 'Payments & BNPL' },
-    { id: 'delivery', label: isAr ? 'تطبيقات التوصيل والمطبخ' : 'Delivery & Kitchen' },
-    { id: 'compliance', label: isAr ? 'زاتكا والامتثال الضريبي' : 'ZATCA & Tax' },
-    { id: 'ecommerce', label: isAr ? 'منصات التجارة الرقمية' : 'Commerce Platforms' },
+    { id: 'all', label: 'All Integrations' },
+    { id: 'payments', label: 'Payments, UPI & POS' },
+    { id: 'delivery', label: 'Delivery & Aggregators' },
+    { id: 'compliance', label: 'GST & Tax Compliance' },
+    { id: 'ecommerce', label: 'Commerce Platforms' },
   ];
 
   const filteredIntegrations =
@@ -35,17 +33,13 @@ export const IntegrationsSection: React.FC<IntegrationsSectionProps> = ({
       <div className="max-w-[1280px] mx-auto px-4 md:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-12">
           <span className="text-[11px] font-bold text-[#F97316] uppercase tracking-wider block mb-2 font-heading">
-            {isAr ? 'البنية التحتية المتصلة' : 'Connected Infrastructure'}
+            Connected Infrastructure
           </span>
           <h2 className="text-[28px] md:text-[40px] leading-[34px] md:leading-[48px] font-bold text-[#1a1b22] tracking-tight font-heading">
-            {isAr
-              ? 'متكامل تماماً مع أدواتك وأنظمتك الحالية'
-              : 'Unified With Your Existing Tech Stack'}
+            Unified With Your Existing Tech Stack
           </h2>
           <p className="mt-4 text-[16px] md:text-[18px] leading-[26px] md:leading-[28px] text-[#52525B]">
-            {isAr
-              ? 'اربط مع أكثر من 50 بوابة دفع إقليمية وأساطيل توصيل ومتاجر رقمية ومنصات فوترة حكومية بموصلات معتمدة ثنائية الاتجاه.'
-              : 'Plug into 50+ localized payment gateways, delivery fleets, e-commerce stores, and government tax compliance portals with pre-built bi-directional connectors.'}
+            Plug into 50+ localized payment gateways, UPI QR rails, Zomato/Swiggy aggregators, and Indian GST e-invoicing compliance portals with pre-built bi-directional connectors.
           </p>
         </div>
 
@@ -103,7 +97,7 @@ export const IntegrationsSection: React.FC<IntegrationsSectionProps> = ({
                 </span>
 
                 <p className="text-[14px] leading-[22px] text-[#52525B] mb-5">
-                  {isAr ? item.descriptionAr : item.description}
+                  {item.description}
                 </p>
               </div>
 
@@ -131,14 +125,10 @@ export const IntegrationsSection: React.FC<IntegrationsSectionProps> = ({
             </div>
             <div>
               <h4 className="text-base md:text-lg font-bold font-heading text-white">
-                {isAr
-                  ? 'هل تحتاج إلى ربط برمجي خاص (Enterprise API)؟'
-                  : 'Need a Custom Enterprise API Connector?'}
+                Need a Custom Enterprise API Connector?
               </h4>
               <p className="text-xs md:text-sm text-stone-400 mt-1">
-                {isAr
-                  ? 'ابنِ برمجياتك الوسيطة بسهولة عبر واجهات GraphQL و REST و Webhooks مع بيئات تجريبية آمنة.'
-                  : 'Build proprietary middleware using our GraphQL & REST webhook APIs with dedicated sandbox environments.'}
+                Build proprietary middleware using our GraphQL & REST webhook APIs with dedicated sandbox environments.
               </p>
             </div>
           </div>
@@ -148,7 +138,7 @@ export const IntegrationsSection: React.FC<IntegrationsSectionProps> = ({
             className="w-full md:w-auto px-6 py-2.5 rounded-full bg-white text-stone-900 font-semibold text-sm hover:bg-stone-100 transition-all shrink-0 hover:scale-102 cursor-pointer shadow-md"
             id="request-api-docs-btn"
           >
-            {isAr ? 'طلب مفتاح ووثائق API' : 'Request API Docs'}
+            Request API Docs
           </button>
         </div>
       </div>

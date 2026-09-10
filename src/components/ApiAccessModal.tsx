@@ -1,18 +1,16 @@
 import React, { useState } from 'react';
 import { Language } from '../types';
-import { X, Code2, Copy, Check, Terminal, ExternalLink } from 'lucide-react';
+import { X, Code2, Copy, Check } from 'lucide-react';
 
 interface ApiAccessModalProps {
-  lang: Language;
+  lang?: Language;
   onClose: () => void;
 }
 
 export const ApiAccessModal: React.FC<ApiAccessModalProps> = ({
-  lang,
   onClose,
 }) => {
   const [copied, setCopied] = useState(false);
-  const isAr = lang === 'ar';
 
   const sampleApiKey = 'pb_live_sk_9481a8b9f02e4d7a81c637b92310f';
 
@@ -32,7 +30,7 @@ export const ApiAccessModal: React.FC<ApiAccessModalProps> = ({
             </div>
             <div>
               <h3 className="text-base font-bold text-white font-heading">
-                {isAr ? 'واجهة البرمجة المؤسسية (API)' : 'Enterprise API & Webhook Suite'}
+                Enterprise API & Webhook Suite
               </h3>
               <p className="text-xs text-stone-400">
                 REST, GraphQL & Real-time Webhooks
@@ -65,8 +63,8 @@ export const ApiAccessModal: React.FC<ApiAccessModalProps> = ({
           </div>
 
           <div className="bg-stone-950 p-4 rounded-xl border border-stone-800/80 font-mono text-[11px] space-y-2 text-stone-300">
-            <div className="text-stone-500">// Example: Fetch Live Inventory Across Outlets</div>
-            <div className="text-[#F97316]">curl -X GET https://api.posbytz.cloud/v2/inventory/outlets \</div>
+            <div className="text-stone-500">// Example: Fetch Live Inventory Across Bangalore & Mumbai Outlets</div>
+            <div className="text-[#F97316]">curl -X GET https://api.posbytz.in/v2/inventory/outlets \</div>
             <div className="pl-4 text-stone-400">-H "Authorization: Bearer {sampleApiKey.substring(0, 10)}..." \</div>
             <div className="pl-4 text-stone-400">-H "Content-Type: application/json"</div>
           </div>
@@ -74,7 +72,7 @@ export const ApiAccessModal: React.FC<ApiAccessModalProps> = ({
           <div className="grid grid-cols-2 gap-3 pt-2">
             <div className="p-3 rounded-xl bg-stone-900 border border-stone-800">
               <div className="font-bold text-white mb-1">Endpoints Available</div>
-              <p className="text-[11px] text-stone-400">POS Orders, KDS Bump Webhooks, ZATCA XML, Recipe Depletion</p>
+              <p className="text-[11px] text-stone-400">POS Orders, KDS Bump Webhooks, GST E-Invoice IRN, UPI Dynamic QR</p>
             </div>
             <div className="p-3 rounded-xl bg-stone-900 border border-stone-800">
               <div className="font-bold text-white mb-1">Rate Limits</div>
@@ -88,7 +86,7 @@ export const ApiAccessModal: React.FC<ApiAccessModalProps> = ({
             onClick={onClose}
             className="px-6 py-2.5 rounded-full bg-[#F97316] text-white text-xs font-bold hover:bg-[#EA580C] cursor-pointer"
           >
-            {isAr ? 'تم، حفظ الإعدادات' : 'Close Developer Console'}
+            Close Developer Console
           </button>
         </div>
       </div>

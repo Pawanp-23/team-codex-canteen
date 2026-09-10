@@ -28,11 +28,11 @@ export default function App() {
   const [videoDemoOpen, setVideoDemoOpen] = useState(false);
   const [apiModalOpen, setApiModalOpen] = useState(false);
 
-  // Sync HTML document direction with language
+  // Set clean LTR document direction
   useEffect(() => {
-    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-    document.documentElement.lang = lang;
-  }, [lang]);
+    document.documentElement.dir = 'ltr';
+    document.documentElement.lang = 'en';
+  }, []);
 
   const handleLaunchLiveHubTab = (tab: HubTab = 'pos') => {
     setHubInitialTab(tab);
@@ -41,12 +41,7 @@ export default function App() {
   };
 
   return (
-    <div
-      className={`min-h-screen font-sans bg-[#fbf8ff] text-[#1a1b22] ${
-        lang === 'ar' ? 'font-arabic' : ''
-      }`}
-      dir={lang === 'ar' ? 'rtl' : 'ltr'}
-    >
+    <div className="min-h-screen font-sans bg-[#fbf8ff] text-[#1a1b22]" dir="ltr">
       {/* Top Application Header */}
       <Header
         lang={lang}

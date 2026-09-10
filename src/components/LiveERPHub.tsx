@@ -42,18 +42,17 @@ import {
 } from 'lucide-react';
 
 interface LiveERPHubProps {
-  lang: Language;
+  lang?: Language;
   initialTab?: HubTab;
   onReturnToLanding: () => void;
 }
 
 export const LiveERPHub: React.FC<LiveERPHubProps> = ({
-  lang,
   initialTab = 'pos',
   onReturnToLanding,
 }) => {
   const [activeTab, setActiveTab] = useState<HubTab>(initialTab);
-  const [selectedBranch, setSelectedBranch] = useState('Dubai Marina HQ');
+  const [selectedBranch, setSelectedBranch] = useState('Bengaluru Flagship - Koramangala');
   const [activeTable, setActiveTable] = useState('Table 04');
   const [menuFilter, setMenuFilter] = useState<'all' | 'beverages' | 'food' | 'desserts'>('all');
   const [searchQuery, setSearchQuery] = useState('');
@@ -63,7 +62,7 @@ export const LiveERPHub: React.FC<LiveERPHubProps> = ({
     {
       ...SAMPLE_MENU_ITEMS[0],
       quantity: 2,
-      modifiers: ['Oat Milk (+AED 3)'],
+      modifiers: ['Extra Espresso Shot (+₹30)'],
     },
     {
       ...SAMPLE_MENU_ITEMS[4],
@@ -78,7 +77,7 @@ export const LiveERPHub: React.FC<LiveERPHubProps> = ({
   // KDS State
   const [tickets, setTickets] = useState<KDSTicket[]>(INITIAL_KDS_TICKETS);
 
-  // ZATCA Invoices
+  // GST & E-Invoicing Invoices
   const [invoices, setInvoices] = useState<ZATCAInvoice[]>(INITIAL_ZATCA_INVOICES);
 
   // Receipt Modal State
@@ -89,11 +88,9 @@ export const LiveERPHub: React.FC<LiveERPHubProps> = ({
     invoiceNum: string;
   } | null>(null);
 
-  const isAr = lang === 'ar';
-
-  // Computed Cart Totals
+  // Computed Cart Totals (5% GST Restaurant Rate: CGST 2.5% + SGST 2.5%)
   const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const vatRate = 0.15;
+  const vatRate = 0.05;
   const vatAmount = subtotal * vatRate;
   const grandTotal = subtotal + vatAmount;
 
@@ -151,7 +148,7 @@ export const LiveERPHub: React.FC<LiveERPHubProps> = ({
   const handleProcessPayment = (method: string) => {
     if (cart.length === 0) return;
 
-    const newInvoiceNum = `INV-2025-09-00${Math.floor(1850 + Math.random() * 500)}`;
+    const newInvoiceNum = `GST-2026-IN-00${Math.floor(1850 + Math.random() * 500)}`;
     const newInvoice: ZATCAInvoice = {
       id: `inv-${Date.now()}`,
       invoiceNumber: newInvoiceNum,
@@ -160,7 +157,7 @@ export const LiveERPHub: React.FC<LiveERPHubProps> = ({
       subtotal: +subtotal.toFixed(2),
       vatAmount: +vatAmount.toFixed(2),
       grandTotal: +grandTotal.toFixed(2),
-      currency: 'AED',
+      currency: 'INR',
       qrPayload: 'AQVQb3NCeXR6IENSUDIWCzMxMDI5NDgxODIwMDAwMw==',
       cryptographicHash: Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15),
       fatooraStatus: 'CLEARED',
@@ -223,7 +220,7 @@ export const LiveERPHub: React.FC<LiveERPHubProps> = ({
     const matchesCategory = menuFilter === 'all' || item.category === menuFilter;
     const matchesSearch =
       item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.nameAr.includes(searchQuery);
+      item.category.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
 
@@ -237,8 +234,8 @@ export const LiveERPHub: React.FC<LiveERPHubProps> = ({
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-stone-900 text-stone-300 hover:text-white hover:bg-stone-800 text-xs font-semibold border border-stone-800 transition-colors"
             id="hub-back-btn"
           >
-            <ArrowLeft className={`w-4 h-4 ${isAr ? 'rotate-180' : ''}`} />
-            <span>{isAr ? 'العودة للموقع' : 'Back to Website'}</span>
+            <ArrowLeft className="w-4 h-4" />
+            <span>Back to Website</span>
           </button>
 
           <div className="flex items-center gap-2">
@@ -252,7 +249,7 @@ export const LiveERPHub: React.FC<LiveERPHubProps> = ({
                 <span className="text-[10px] font-normal text-emerald-400">Terminal 04 Active</span>
               </div>
               <div className="text-[11px] text-stone-400 font-mono">
-                posbytz.cloud/hub/hq-enterprise
+                posbytz.cloud/hub/india-enterprise
               </div>
             </div>
           </div>
@@ -261,22 +258,22 @@ export const LiveERPHub: React.FC<LiveERPHubProps> = ({
         {/* Branch Selector & Shift */}
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-1.5 bg-stone-900 border border-stone-800 rounded-lg px-2.5 py-1 text-xs text-stone-300">
-            <span className="text-stone-500 font-medium">{isAr ? 'الفرع:' : 'Outlet:'}</span>
+            <span className="text-stone-500 font-medium">Outlet:</span>
             <select
               value={selectedBranch}
               onChange={(e) => setSelectedBranch(e.target.value)}
               className="bg-transparent text-white font-semibold focus:outline-none cursor-pointer"
             >
-              <option value="Dubai Marina HQ" className="bg-stone-900 text-white">Dubai Marina HQ</option>
-              <option value="Riyadh Al Olaya" className="bg-stone-900 text-white">Riyadh Al Olaya</option>
-              <option value="Jeddah Corniche" className="bg-stone-900 text-white">Jeddah Corniche</option>
-              <option value="Abu Dhabi Mall" className="bg-stone-900 text-white">Abu Dhabi Mall</option>
+              <option value="Bengaluru Indiranagar" className="bg-stone-900 text-white">Bengaluru Indiranagar</option>
+              <option value="Mumbai Bandra West" className="bg-stone-900 text-white">Mumbai Bandra West</option>
+              <option value="Delhi Connaught Place" className="bg-stone-900 text-white">Delhi Connaught Place</option>
+              <option value="Pune Koregaon Park" className="bg-stone-900 text-white">Pune Koregaon Park</option>
             </select>
           </div>
 
           <div className="hidden sm:flex items-center gap-2 px-2.5 py-1 rounded-lg bg-emerald-950/70 border border-emerald-800/60 text-emerald-400 text-xs font-mono">
             <ShieldCheck className="w-3.5 h-3.5" />
-            <span>ZATCA Phase 2: LIVE</span>
+            <span>GST & E-Invoicing: ACTIVE</span>
           </div>
         </div>
       </div>
@@ -293,7 +290,7 @@ export const LiveERPHub: React.FC<LiveERPHubProps> = ({
             }`}
           >
             <Store className="w-4 h-4" />
-            <span>{isAr ? 'كاشير نقاط البيع (POS)' : 'POS Terminal'}</span>
+            <span>POS Terminal</span>
           </button>
 
           <button
@@ -305,7 +302,7 @@ export const LiveERPHub: React.FC<LiveERPHubProps> = ({
             }`}
           >
             <ChefHat className="w-4 h-4" />
-            <span>{isAr ? 'شاشات المطبخ (KDS)' : 'Kitchen Display'}</span>
+            <span>Kitchen Display</span>
             {tickets.filter((t) => t.status === 'preparing').length > 0 && (
               <span className="w-5 h-5 rounded-full bg-amber-500 text-stone-950 font-bold text-[10px] flex items-center justify-center">
                 {tickets.filter((t) => t.status === 'preparing').length}
@@ -322,7 +319,7 @@ export const LiveERPHub: React.FC<LiveERPHubProps> = ({
             }`}
           >
             <Layers className="w-4 h-4" />
-            <span>{isAr ? 'مصفوفة المخزون' : 'Live Inventory'}</span>
+            <span>Live Inventory</span>
           </button>
 
           <button
@@ -334,7 +331,7 @@ export const LiveERPHub: React.FC<LiveERPHubProps> = ({
             }`}
           >
             <ShieldCheck className="w-4 h-4" />
-            <span>{isAr ? 'منظومة فاتورة (زاتكا)' : 'ZATCA Clearance'}</span>
+            <span>GST & E-Invoicing</span>
           </button>
 
           <button
@@ -346,18 +343,18 @@ export const LiveERPHub: React.FC<LiveERPHubProps> = ({
             }`}
           >
             <BarChart3 className="w-4 h-4" />
-            <span>{isAr ? 'التحليلات والمبيعات' : 'Executive BI'}</span>
+            <span>Executive BI</span>
           </button>
         </div>
 
         <div className="hidden lg:flex items-center gap-4 text-xs text-stone-400">
           <span>
-            {isAr ? 'المبيعات اليومية:' : 'Daily Sales:'}{' '}
-            <strong className="text-white">AED 48,290.00</strong>
+            Daily Sales:{' '}
+            <strong className="text-white">₹ 48,290.00</strong>
           </span>
           <span className="w-1 h-1 rounded-full bg-stone-600"></span>
           <span>
-            {isAr ? 'الطاولات النشطة:' : 'Occupied Tables:'}{' '}
+            Occupied Tables:{' '}
             <strong className="text-emerald-400">8 / 12</strong>
           </span>
         </div>
@@ -374,10 +371,10 @@ export const LiveERPHub: React.FC<LiveERPHubProps> = ({
               <div className="bg-stone-900/90 rounded-2xl p-4 border border-stone-800">
                 <div className="flex items-center justify-between mb-3">
                   <div className="text-xs font-bold uppercase tracking-wider text-stone-400 font-heading">
-                    {isAr ? 'خريطة الصالة والطاولات النشطة' : 'Floor Map & Active Tables'}
+                    Floor Map & Active Tables
                   </div>
                   <span className="text-xs text-emerald-400 font-medium">
-                    {isAr ? 'طاولة محددة:' : 'Selected:'} {activeTable}
+                    Selected: {activeTable}
                   </span>
                 </div>
 
@@ -411,11 +408,11 @@ export const LiveERPHub: React.FC<LiveERPHubProps> = ({
               <div className="flex flex-wrap items-center justify-between gap-3 bg-stone-900/90 rounded-2xl p-3 border border-stone-800">
                 <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar">
                   {(['all', 'beverages', 'food', 'desserts'] as const).map((cat) => {
-                    const labels: Record<string, { en: string; ar: string }> = {
-                      all: { en: 'All Items', ar: 'كافة الأصناف' },
-                      beverages: { en: '☕ Specialty Drinks', ar: '☕ مشروبات مختصة' },
-                      food: { en: '🍔 Gourmet Food', ar: '🍔 وجبات رئيسية' },
-                      desserts: { en: '🥐 Artisan Bakery', ar: '🥐 مخبوزات وحلويات' },
+                    const labels: Record<string, string> = {
+                      all: 'All Items',
+                      beverages: '☕ Specialty Drinks',
+                      food: '🍔 Gourmet Food',
+                      desserts: '🥐 Artisan Bakery',
                     };
                     return (
                       <button
@@ -427,7 +424,7 @@ export const LiveERPHub: React.FC<LiveERPHubProps> = ({
                             : 'bg-stone-800/60 text-stone-300 hover:bg-stone-800'
                         }`}
                       >
-                        {isAr ? labels[cat].ar : labels[cat].en}
+                        {labels[cat]}
                       </button>
                     );
                   })}
@@ -439,7 +436,7 @@ export const LiveERPHub: React.FC<LiveERPHubProps> = ({
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder={isAr ? 'بحث في القائمة...' : 'Search menu items...'}
+                    placeholder="Search menu items..."
                     className="w-full bg-stone-950 border border-stone-800 rounded-xl pl-9 pr-3 py-1.5 text-xs text-white placeholder-stone-500 focus:outline-none focus:border-[#F97316]"
                   />
                 </div>
@@ -463,14 +460,14 @@ export const LiveERPHub: React.FC<LiveERPHubProps> = ({
                         {item.calories}
                       </div>
                       <div className="absolute bottom-2 left-2 px-2 py-1 rounded-lg bg-[#F97316] text-white font-extrabold text-xs shadow-md">
-                        AED {item.price.toFixed(2)}
+                        ₹ {item.price.toFixed(2)}
                       </div>
                     </div>
 
                     <div className="p-4 flex-1 flex flex-col justify-between">
                       <div>
                         <h4 className="text-sm font-bold text-white group-hover:text-[#F97316] transition-colors line-clamp-1">
-                          {isAr ? item.nameAr : item.name}
+                          {item.name}
                         </h4>
                         <div className="text-[11px] text-stone-400 mt-1 line-clamp-1">
                           {item.ingredients.map((ing) => ing.name).join(', ')}
@@ -498,13 +495,13 @@ export const LiveERPHub: React.FC<LiveERPHubProps> = ({
                 <div className="flex items-center justify-between pb-4 border-b border-stone-800">
                   <div>
                     <h3 className="font-bold text-base text-white flex items-center gap-2">
-                      <span>{isAr ? 'الطلب الحالي' : 'Current Order'}</span>
+                      <span>Current Order</span>
                       <span className="px-2 py-0.5 rounded-full bg-orange-500/20 text-[#F97316] text-xs font-mono font-bold">
                         {activeTable}
                       </span>
                     </h3>
                     <div className="text-xs text-stone-400 mt-0.5">
-                      Cashier: Chef Tariq • Terminal #04
+                      Cashier: Pawan Patil • Terminal #04
                     </div>
                   </div>
 
@@ -525,7 +522,7 @@ export const LiveERPHub: React.FC<LiveERPHubProps> = ({
                     <div className="py-12 text-center text-stone-500">
                       <Receipt className="w-10 h-10 mx-auto mb-2 opacity-40 text-[#F97316]" />
                       <p className="text-xs">
-                        {isAr ? 'سلة الطلبات فارغة، اضغط على صنف لإضافته' : 'No items added. Click menu items to add.'}
+                        No items added. Click menu items to add.
                       </p>
                     </div>
                   ) : (
@@ -536,7 +533,7 @@ export const LiveERPHub: React.FC<LiveERPHubProps> = ({
                       >
                         <div className="flex-1">
                           <div className="text-xs font-bold text-white leading-tight">
-                            {isAr ? c.nameAr : c.name}
+                            {c.name}
                           </div>
                           {c.modifiers.length > 0 && (
                             <div className="text-[10px] text-orange-400 mt-0.5 font-medium">
@@ -544,7 +541,7 @@ export const LiveERPHub: React.FC<LiveERPHubProps> = ({
                             </div>
                           )}
                           <div className="text-xs font-mono text-stone-400 mt-1">
-                            AED {(c.price * c.quantity).toFixed(2)}
+                            ₹ {(c.price * c.quantity).toFixed(2)}
                           </div>
                         </div>
 
@@ -575,48 +572,48 @@ export const LiveERPHub: React.FC<LiveERPHubProps> = ({
               {/* Subtotal & Tax Calculation */}
               <div className="pt-4 border-t border-stone-800 flex flex-col gap-2 text-xs text-stone-300">
                 <div className="flex justify-between">
-                  <span className="text-stone-400">{isAr ? 'المجموع الفرعي:' : 'Subtotal:'}</span>
-                  <span className="font-mono">AED {subtotal.toFixed(2)}</span>
+                  <span className="text-stone-400">Subtotal:</span>
+                  <span className="font-mono">₹ {subtotal.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-stone-400">
-                    {isAr ? 'ضريبة القيمة المضافة (15%):' : 'VAT (15% ZATCA Compliant):'}
+                    GST (5% Restaurant - CGST 2.5% + SGST 2.5%):
                   </span>
-                  <span className="font-mono text-amber-400">AED {vatAmount.toFixed(2)}</span>
+                  <span className="font-mono text-amber-400">₹ {vatAmount.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-base font-bold text-white pt-2 border-t border-stone-800">
-                  <span>{isAr ? 'المبلغ الإجمالي:' : 'Grand Total:'}</span>
-                  <span className="text-[#F97316] font-mono">AED {grandTotal.toFixed(2)}</span>
+                  <span>Grand Total:</span>
+                  <span className="text-[#F97316] font-mono">₹ {grandTotal.toFixed(2)}</span>
                 </div>
 
                 {/* Instant Payment Actions */}
                 <div className="mt-4 grid grid-cols-2 gap-2">
                   <button
                     disabled={cart.length === 0}
-                    onClick={() => handleProcessPayment('Mada / Card')}
+                    onClick={() => handleProcessPayment('UPI (GPay / PhonePe / Paytm)')}
                     className="p-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 disabled:opacity-40 disabled:pointer-events-none text-white font-bold text-xs flex items-center justify-center gap-2 shadow-lg transition-all cursor-pointer"
                   >
-                    <CreditCard className="w-4 h-4" />
-                    <span>Mada / Card</span>
+                    <QrCode className="w-4 h-4" />
+                    <span>UPI QR Pay</span>
                   </button>
 
                   <button
                     disabled={cart.length === 0}
-                    onClick={() => handleProcessPayment('Cash')}
+                    onClick={() => handleProcessPayment('Card')}
                     className="p-3 rounded-xl bg-stone-800 hover:bg-stone-700 disabled:opacity-40 disabled:pointer-events-none text-white font-bold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer"
                   >
-                    <Banknote className="w-4 h-4" />
-                    <span>{isAr ? 'نقداً' : 'Cash'}</span>
+                    <CreditCard className="w-4 h-4" />
+                    <span>Card / POS</span>
                   </button>
                 </div>
 
                 <button
                   disabled={cart.length === 0}
-                  onClick={() => handleProcessPayment('Tabby BNPL')}
-                  className="w-full mt-1 p-2.5 rounded-xl bg-gradient-to-r from-emerald-900 to-teal-900 hover:from-emerald-800 hover:to-teal-800 disabled:opacity-40 disabled:pointer-events-none text-emerald-200 font-semibold text-xs flex items-center justify-center gap-2 border border-emerald-700/50 transition-all cursor-pointer"
+                  onClick={() => handleProcessPayment('Cash')}
+                  className="w-full mt-1 p-2.5 rounded-xl bg-stone-900 hover:bg-stone-800 disabled:opacity-40 disabled:pointer-events-none text-stone-200 font-semibold text-xs flex items-center justify-center gap-2 border border-stone-800 transition-all cursor-pointer"
                 >
-                  <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>{isAr ? 'تقسيط عبر تابي (4 دفعات)' : 'Split in 4 with Tabby BNPL'}</span>
+                  <Banknote className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Cash Payment Counter</span>
                 </button>
               </div>
             </div>
@@ -629,19 +626,16 @@ export const LiveERPHub: React.FC<LiveERPHubProps> = ({
             <div className="flex items-center justify-between mb-6">
               <div>
                 <h3 className="text-xl font-bold text-white font-heading">
-                  {isAr ? 'شاشات المطبخ الرقمية (KDS)' : 'Live Kitchen Display Routing'}
+                  Live Kitchen Display Routing (KDS)
                 </h3>
                 <p className="text-xs text-stone-400 mt-1">
-                  {isAr
-                    ? 'تدفق تذاكر الطهي مباشرة من الكاشير وتطبيقات التوصيل (طلبات، دليفرو) مع مؤقتات دقيقة'
-                    : 'Direct ticket routing from counter & aggregators with cook times and station dispatch'}
+                  Direct ticket routing from counter POS and online delivery aggregators (Zomato, Swiggy) with cook timers
                 </p>
               </div>
 
               <div className="flex items-center gap-3">
                 <span className="text-xs text-stone-400">
-                  {isAr ? 'التذاكر النشطة:' : 'Active Tickets:'}{' '}
-                  <strong className="text-white">{tickets.length}</strong>
+                  Active Tickets: <strong className="text-white">{tickets.length}</strong>
                 </span>
               </div>
             </div>
@@ -725,13 +719,7 @@ export const LiveERPHub: React.FC<LiveERPHubProps> = ({
                               : 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-md'
                           }`}
                         >
-                          {isReady
-                            ? isAr
-                              ? 'تسليم الطلب (Bump)'
-                              : 'Bump / Served'
-                            : isAr
-                            ? 'جاهز للتقديم'
-                            : 'Mark Ready'}
+                          {isReady ? 'Bump / Served' : 'Mark Ready'}
                         </button>
                       )}
                     </div>
@@ -748,12 +736,10 @@ export const LiveERPHub: React.FC<LiveERPHubProps> = ({
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
               <div>
                 <h3 className="text-xl font-bold text-white font-heading">
-                  {isAr ? 'مصفوفة المخزون وهندسة الوصفات' : 'Central Inventory & Recipe Depletion'}
+                  Central Inventory & Recipe Depletion
                 </h3>
                 <p className="text-xs text-stone-400 mt-1">
-                  {isAr
-                    ? 'يتم خصم المكونات الخام لحظياً مع كل عملية بيع مسجلة عند الكاشير'
-                    : 'Raw ingredients dynamically decrement down to grams when dishes are rung up'}
+                  Raw ingredients dynamically decrement down to grams when dishes are rung up
                 </p>
               </div>
 
@@ -763,7 +749,7 @@ export const LiveERPHub: React.FC<LiveERPHubProps> = ({
                   className="px-3 py-1.5 rounded-xl bg-stone-800 hover:bg-stone-700 text-xs text-stone-300 flex items-center gap-1.5"
                 >
                   <RefreshCw className="w-3.5 h-3.5" />
-                  <span>{isAr ? 'إعادة ضبط المخزون' : 'Reset Inventory'}</span>
+                  <span>Reset Inventory</span>
                 </button>
               </div>
             </div>
@@ -773,13 +759,13 @@ export const LiveERPHub: React.FC<LiveERPHubProps> = ({
                 <table className="w-full text-left text-xs">
                   <thead className="bg-stone-950 text-stone-400 uppercase tracking-wider text-[11px] font-mono border-b border-stone-800">
                     <tr>
-                      <th className="p-4">{isAr ? 'المكون / الصنف' : 'Raw Ingredient'}</th>
-                      <th className="p-4">{isAr ? 'التصنيف' : 'Category'}</th>
-                      <th className="p-4">{isAr ? 'المخزون الحالي' : 'Live On-Hand'}</th>
-                      <th className="p-4">{isAr ? 'معدل الخصم' : 'Depletion Per Sale'}</th>
-                      <th className="p-4">{isAr ? 'الحد الأدنى' : 'Reorder Level'}</th>
-                      <th className="p-4">{isAr ? 'الحالة' : 'Status'}</th>
-                      <th className="p-4 text-right">{isAr ? 'إجراء سريع' : 'Action'}</th>
+                      <th className="p-4">Raw Ingredient</th>
+                      <th className="p-4">Category</th>
+                      <th className="p-4">Live On-Hand</th>
+                      <th className="p-4">Depletion Per Sale</th>
+                      <th className="p-4">Reorder Level</th>
+                      <th className="p-4">Status</th>
+                      <th className="p-4 text-right">Action</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-stone-800/60">
@@ -789,7 +775,7 @@ export const LiveERPHub: React.FC<LiveERPHubProps> = ({
                         <tr key={item.id} className="hover:bg-stone-800/40 transition-colors">
                           <td className="p-4">
                             <div className="font-bold text-white text-sm">
-                              {isAr ? item.nameAr : item.name}
+                              {item.name}
                             </div>
                             <div className="text-[10px] text-stone-500 font-mono">
                               SKU: {item.id.toUpperCase()}
@@ -852,44 +838,42 @@ export const LiveERPHub: React.FC<LiveERPHubProps> = ({
           </div>
         )}
 
-        {/* TAB 4: ZATCA PHASE 2 CLEARANCE */}
+        {/* TAB 4: GST & E-INVOICING PORTAL */}
         {activeTab === 'zatca' && (
           <div className="max-w-[1400px] mx-auto">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
               <div>
                 <h3 className="text-xl font-bold text-white font-heading flex items-center gap-2">
-                  <span>{isAr ? 'منظومة فاتورة والامتثال لزاتكا (المرحلة الثانية)' : 'ZATCA Phase 2 FATOORA Compliance Portal'}</span>
+                  <span>Indian GST & E-Invoicing Compliance Portal</span>
                   <span className="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 text-xs font-mono">
-                    CLEARED
+                    GST VALIDATED
                   </span>
                 </h3>
                 <p className="text-xs text-stone-400 mt-1">
-                  {isAr
-                    ? 'فواتير ضريبية مبسطة وقياسية موقعة رقمياً مع توثيق الأختام ورمز الاستجابة السريعة'
-                    : 'Cryptographically signed B2C simplified and B2B standard tax invoices with QR & cryptographic hash'}
+                  HSN-coded restaurant tax invoices with digital signature, dynamic UPI QR codes & IRN generation
                 </p>
               </div>
 
               <div className="flex items-center gap-2 text-xs text-stone-400 bg-stone-900 border border-stone-800 px-3 py-1.5 rounded-xl font-mono">
-                <span>CSID: VALIDATED (UUID-3901-KSA)</span>
+                <span>GSTIN: 29AABCU9603R1ZM (KARNATAKA)</span>
               </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
               <div className="bg-stone-900 p-4 rounded-xl border border-stone-800">
-                <div className="text-xs text-stone-400 uppercase font-mono">Total Cleared Today</div>
-                <div className="text-2xl font-bold text-white mt-1">SAR 182,410.00</div>
-                <div className="text-[11px] text-emerald-400 mt-1">100% Tax Clearance SLA</div>
+                <div className="text-xs text-stone-400 uppercase font-mono">Total Billed Today</div>
+                <div className="text-2xl font-bold text-white mt-1">₹ 1,82,410.00</div>
+                <div className="text-[11px] text-emerald-400 mt-1">100% Tax Reconciliation SLA</div>
               </div>
               <div className="bg-stone-900 p-4 rounded-xl border border-stone-800">
-                <div className="text-xs text-stone-400 uppercase font-mono">VAT (15%) Output</div>
-                <div className="text-2xl font-bold text-amber-400 mt-1">SAR 27,361.50</div>
-                <div className="text-[11px] text-stone-400 mt-1">Auto-reconciled in GL</div>
+                <div className="text-xs text-stone-400 uppercase font-mono">GST Output (5% Food)</div>
+                <div className="text-2xl font-bold text-amber-400 mt-1">₹ 9,120.50</div>
+                <div className="text-[11px] text-stone-400 mt-1">CGST ₹4,560.25 + SGST ₹4,560.25</div>
               </div>
               <div className="bg-stone-900 p-4 rounded-xl border border-stone-800">
-                <div className="text-xs text-stone-400 uppercase font-mono">FATOORA API Gateway</div>
+                <div className="text-xs text-stone-400 uppercase font-mono">NIC E-Way / IRP Gateway</div>
                 <div className="text-2xl font-bold text-emerald-400 mt-1">18ms Latency</div>
-                <div className="text-[11px] text-stone-400 mt-1">Direct Government Webhook</div>
+                <div className="text-[11px] text-stone-400 mt-1">Direct GSTN API Webhook</div>
               </div>
             </div>
 
@@ -898,14 +882,14 @@ export const LiveERPHub: React.FC<LiveERPHubProps> = ({
                 <table className="w-full text-left text-xs">
                   <thead className="bg-stone-950 text-stone-400 uppercase tracking-wider text-[11px] font-mono border-b border-stone-800">
                     <tr>
-                      <th className="p-4">Invoice #</th>
-                      <th className="p-4">Buyer Entity</th>
+                      <th className="p-4">Tax Invoice #</th>
+                      <th className="p-4">Customer Entity</th>
                       <th className="p-4">Timestamp</th>
-                      <th className="p-4">Subtotal</th>
-                      <th className="p-4">VAT (15%)</th>
+                      <th className="p-4">Taxable Value</th>
+                      <th className="p-4">GST (5%)</th>
                       <th className="p-4">Grand Total</th>
-                      <th className="p-4">ZATCA Clearance</th>
-                      <th className="p-4 text-right">Cryptographic Token</th>
+                      <th className="p-4">IRN Status</th>
+                      <th className="p-4 text-right">Signed QR Hash</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-stone-800/60">
@@ -917,18 +901,18 @@ export const LiveERPHub: React.FC<LiveERPHubProps> = ({
                         <td className="p-4 text-white font-medium">{inv.buyerName}</td>
                         <td className="p-4 text-stone-400 font-mono">{inv.timestamp}</td>
                         <td className="p-4 text-stone-300 font-mono">
-                          {inv.currency} {inv.subtotal.toFixed(2)}
+                          ₹ {inv.subtotal.toFixed(2)}
                         </td>
                         <td className="p-4 text-amber-400 font-mono">
-                          {inv.currency} {inv.vatAmount.toFixed(2)}
+                          ₹ {inv.vatAmount.toFixed(2)}
                         </td>
                         <td className="p-4 text-white font-mono font-bold">
-                          {inv.currency} {inv.grandTotal.toFixed(2)}
+                          ₹ {inv.grandTotal.toFixed(2)}
                         </td>
                         <td className="p-4">
                           <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
                             <ShieldCheck className="w-3 h-3" />
-                            <span>{inv.fatooraStatus}</span>
+                            <span>GENERATED</span>
                           </span>
                         </td>
                         <td className="p-4 text-right font-mono text-[10px] text-stone-400">
@@ -951,12 +935,10 @@ export const LiveERPHub: React.FC<LiveERPHubProps> = ({
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-xl font-bold text-white font-heading">
-                  {isAr ? 'لوحة القيادة التنفيذية والتحليلات التشغيلية' : 'Executive Business Intelligence & PMIX'}
+                  Executive Business Intelligence & PMIX
                 </h3>
                 <p className="text-xs text-stone-400 mt-1">
-                  {isAr
-                    ? 'رؤية شاملة عبر كافة الفروع: هوامش الربح، وهندسة القائمة، ومعدل دوران الطاولات'
-                    : 'Consolidated multi-unit performance, product mix margins, and speed-of-service metrics'}
+                  Consolidated multi-unit performance, product mix margins, and speed-of-service metrics
                 </p>
               </div>
             </div>
@@ -968,7 +950,7 @@ export const LiveERPHub: React.FC<LiveERPHubProps> = ({
                   Today's Network Revenue
                 </div>
                 <div className="text-2xl font-bold text-white font-heading mt-2">
-                  AED 1,248,750.00
+                  ₹ 12,48,750.00
                 </div>
                 <div className="text-xs text-emerald-400 font-semibold mt-1">
                   +18.4% vs last week
@@ -1019,10 +1001,10 @@ export const LiveERPHub: React.FC<LiveERPHubProps> = ({
               </h4>
               <div className="space-y-4">
                 {[
-                  { name: 'Signature Spanish Latte', sales: '842 orders', rev: 'AED 20,208.00', pct: 88 },
-                  { name: 'Wagyu Truffle Smash Burger', sales: '412 orders', rev: 'AED 19,776.00', pct: 76 },
-                  { name: 'Saffron Karak Chai', sales: '1,280 orders', rev: 'AED 15,360.00', pct: 68 },
-                  { name: 'Artisan Pistachio Croissant', sales: '390 orders', rev: 'AED 8,580.00', pct: 45 },
+                  { name: 'Specialty Cappuccino / Cold Brew', sales: '842 orders', rev: '₹ 2,02,080.00', pct: 88 },
+                  { name: 'Paneer Tikka Gourmet Wrap', sales: '412 orders', rev: '₹ 1,19,480.00', pct: 76 },
+                  { name: 'Masala Karak Chai', sales: '1,280 orders', rev: '₹ 64,000.00', pct: 68 },
+                  { name: 'Artisan Butter Croissant', sales: '390 orders', rev: '₹ 70,200.00', pct: 45 },
                 ].map((item, idx) => (
                   <div key={idx} className="space-y-1.5">
                     <div className="flex justify-between text-xs">
@@ -1056,7 +1038,7 @@ export const LiveERPHub: React.FC<LiveERPHubProps> = ({
                 </div>
                 <div>
                   <h4 className="font-bold text-sm text-stone-900">PosBytz Cloud ERP</h4>
-                  <p className="text-[10px] text-stone-500">ZATCA Tax Invoice Receipt</p>
+                  <p className="text-[10px] text-stone-500">GST Tax Invoice Receipt</p>
                 </div>
               </div>
               <button
@@ -1079,17 +1061,17 @@ export const LiveERPHub: React.FC<LiveERPHubProps> = ({
               </p>
 
               <div className="my-5 p-4 rounded-2xl bg-stone-50 border border-stone-200">
-                <span className="text-xs text-stone-500 block">Total Paid (VAT Incl.)</span>
+                <span className="text-xs text-stone-500 block">Total Paid (GST Incl.)</span>
                 <span className="text-3xl font-extrabold text-stone-900 font-mono mt-1 block">
-                  AED {lastPayment.total.toFixed(2)}
+                  ₹ {lastPayment.total.toFixed(2)}
                 </span>
               </div>
 
-              {/* Simulated ZATCA Phase 2 QR Code Box */}
+              {/* UPI QR Code Verification Box */}
               <div className="flex flex-col items-center justify-center p-4 rounded-xl border border-dashed border-stone-300 bg-white mb-4">
                 <QrCode className="w-24 h-24 text-stone-900" />
-                <span className="text-[10px] font-mono text-stone-400 mt-2">
-                  ZATCA Cryptographic Token Validated
+                <span className="text-[10px] font-mono text-stone-500 mt-2">
+                  UPI & GST Digital Signature Token Validated
                 </span>
               </div>
             </div>

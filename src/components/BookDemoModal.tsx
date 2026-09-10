@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import { Language } from '../types';
-import { X, Calendar, Building, Users, CheckCircle2, Phone, Mail } from 'lucide-react';
+import { X, CheckCircle2 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 interface BookDemoModalProps {
-  lang: Language;
+  lang?: Language;
   onClose: () => void;
 }
 
 export const BookDemoModal: React.FC<BookDemoModalProps> = ({
-  lang,
   onClose,
 }) => {
   const [businessName, setBusinessName] = useState('');
@@ -18,8 +17,6 @@ export const BookDemoModal: React.FC<BookDemoModalProps> = ({
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [submitted, setSubmitted] = useState(false);
-
-  const isAr = lang === 'ar';
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,12 +39,10 @@ export const BookDemoModal: React.FC<BookDemoModalProps> = ({
         <div className="flex items-center justify-between pb-4 border-b border-stone-200">
           <div>
             <h3 className="text-lg font-bold text-stone-900 font-heading">
-              {isAr ? 'حجز عرض تجريبي مخصص' : 'Schedule Executive Demo'}
+              Schedule Executive Demo
             </h3>
             <p className="text-xs text-stone-500 mt-0.5">
-              {isAr
-                ? 'جلسة استشارية مباشرة مع مهندس حلول متخصص في قطاعك'
-                : 'Direct 1-on-1 walkthrough tailored to your brand operations'}
+              Direct 1-on-1 walkthrough tailored to your brand operations
             </p>
           </div>
           <button
@@ -64,32 +59,30 @@ export const BookDemoModal: React.FC<BookDemoModalProps> = ({
               <CheckCircle2 className="w-8 h-8" />
             </div>
             <h4 className="text-xl font-bold text-stone-900 font-heading">
-              {isAr ? 'تم استلام طلب العرض بنجاح!' : 'Executive Demo Confirmed'}
+              Executive Demo Confirmed
             </h4>
             <p className="text-sm text-stone-600 mt-2 max-w-sm mx-auto">
-              {isAr
-                ? 'سيتواصل معك مهندس الحلول خلال أقل من 15 دقيقة لتأكيد موعد الجلسة الافتراضية.'
-                : 'A dedicated PosBytz solutions architect will reach out within 15 minutes with calendar options.'}
+              A dedicated PosBytz solutions architect will reach out within 15 minutes with calendar options.
             </p>
             <button
               onClick={onClose}
               className="mt-6 px-7 py-2.5 rounded-full bg-[#F97316] text-white text-xs font-bold shadow-md hover:bg-[#EA580C]"
             >
-              {isAr ? 'تم، شكراً لك' : 'Done'}
+              Done
             </button>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="mt-5 space-y-4 text-xs">
             <div>
               <label className="block font-bold text-stone-700 mb-1">
-                {isAr ? 'اسم العلامة التجارية / المطعم' : 'Brand / Company Name'}
+                Brand / Restaurant Name
               </label>
               <input
                 type="text"
                 required
                 value={businessName}
                 onChange={(e) => setBusinessName(e.target.value)}
-                placeholder="e.g. Karakccino Specialty Cafe"
+                placeholder="e.g. Chai Point & Cafe"
                 className="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 focus:outline-none focus:border-[#F97316]"
               />
             </div>
@@ -97,7 +90,7 @@ export const BookDemoModal: React.FC<BookDemoModalProps> = ({
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
                 <label className="block font-bold text-stone-700 mb-1">
-                  {isAr ? 'قطاع النشاط' : 'Business Archetype'}
+                  Business Archetype
                 </label>
                 <select
                   value={businessType}
@@ -107,14 +100,14 @@ export const BookDemoModal: React.FC<BookDemoModalProps> = ({
                   <option>Specialty Coffee & Cafe</option>
                   <option>Casual & Fine Dining</option>
                   <option>Fast Casual & QSR</option>
-                  <option>Retail & Apparel</option>
+                  <option>Retail & Cloud Kitchen</option>
                   <option>Supermarket & Grocery</option>
                 </select>
               </div>
 
               <div>
                 <label className="block font-bold text-stone-700 mb-1">
-                  {isAr ? 'عدد الفروع الحالية' : 'Number of Outlets'}
+                  Number of Outlets
                 </label>
                 <select
                   value={outlets}
@@ -132,7 +125,7 @@ export const BookDemoModal: React.FC<BookDemoModalProps> = ({
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
                 <label className="block font-bold text-stone-700 mb-1">
-                  {isAr ? 'البريد الإلكتروني المهني' : 'Work Email'}
+                  Work Email
                 </label>
                 <input
                   type="email"
@@ -146,14 +139,14 @@ export const BookDemoModal: React.FC<BookDemoModalProps> = ({
 
               <div>
                 <label className="block font-bold text-stone-700 mb-1">
-                  {isAr ? 'رقم الهاتف / الواتساب' : 'Phone / WhatsApp'}
+                  Phone / WhatsApp (India)
                 </label>
                 <input
                   type="tel"
                   required
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  placeholder="+971 50 123 4567"
+                  placeholder="+91 98765 43210"
                   className="w-full px-3.5 py-2.5 rounded-xl border border-stone-300 focus:outline-none focus:border-[#F97316]"
                 />
               </div>
@@ -164,7 +157,7 @@ export const BookDemoModal: React.FC<BookDemoModalProps> = ({
                 type="submit"
                 className="w-full py-3 rounded-full bg-[#F97316] text-white font-bold text-xs shadow-lg hover:bg-[#EA580C] transition-all cursor-pointer"
               >
-                {isAr ? 'تأكيد وحجز موعد العرض' : 'Confirm & Request Demo'}
+                Confirm & Request Demo
               </button>
             </div>
           </form>

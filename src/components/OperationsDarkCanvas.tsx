@@ -4,16 +4,14 @@ import { HARDWARE_IMAGE_URL, HARDWARE_TABS } from '../data/content';
 import { CheckCircle2, ChevronRight, Terminal } from 'lucide-react';
 
 interface OperationsDarkCanvasProps {
-  lang: Language;
+  lang?: Language;
   onLaunchHubTab: (tab: HubTab) => void;
 }
 
 export const OperationsDarkCanvas: React.FC<OperationsDarkCanvasProps> = ({
-  lang,
   onLaunchHubTab,
 }) => {
   const [activeTabIdx, setActiveTabIdx] = useState(0);
-  const isAr = lang === 'ar';
 
   const currentTab = HARDWARE_TABS[activeTabIdx];
 
@@ -23,6 +21,13 @@ export const OperationsDarkCanvas: React.FC<OperationsDarkCanvasProps> = ({
     2: 'inventory',
     3: 'analytics',
   };
+
+  const labels = [
+    'Ring Up Orders in Seconds',
+    'Fire Orders Straight to the Line',
+    'Stock that Counts Itself',
+    'Decisions, Not Just Dashboards',
+  ];
 
   return (
     <section className="py-20 md:py-28 bg-[#0A0A0A] text-[#f1effa] relative overflow-hidden">
@@ -34,17 +39,13 @@ export const OperationsDarkCanvas: React.FC<OperationsDarkCanvasProps> = ({
         {/* Section Header */}
         <div className="max-w-3xl mb-12 text-left">
           <span className="text-[11px] font-bold text-[#F97316] uppercase tracking-wider block mb-2 font-heading">
-            {isAr ? 'المنظومة السحابية المتكاملة' : 'All-In-One Cloud ERP Ecosystem'}
+            All-In-One Cloud ERP Ecosystem
           </span>
           <h2 className="text-[28px] md:text-[40px] leading-[34px] md:leading-[48px] font-bold text-white tracking-tight font-heading">
-            {isAr
-              ? 'منصة موحدة لإدارة كافة عمليات مطعمك ومتجرك'
-              : 'One Platform for Your Entire Restaurant & Retail Operations'}
+            One Platform for Your Entire Restaurant & Retail Operations
           </h2>
           <p className="mt-4 text-[16px] md:text-[18px] leading-[26px] md:leading-[28px] text-[#A1A1AA]">
-            {isAr
-              ? 'كل كاشير، وشاشة مطبخ، ورف مستودع، وقيد محاسبي يعمل بتزامن فوري من مصدر موثوق واحد — بدون ملفات إكسل وبدون تسويات يدوية مرهقة.'
-              : 'Every counter, kitchen display, warehouse shelf, and accounting ledger working synchronously from a single source of truth — zero spreadsheets, zero manual reconciliation.'}
+            Every counter, kitchen display, warehouse shelf, and accounting ledger working synchronously from a single source of truth — zero spreadsheets, zero manual reconciliation.
           </p>
         </div>
 
@@ -52,12 +53,6 @@ export const OperationsDarkCanvas: React.FC<OperationsDarkCanvasProps> = ({
         <div className="flex flex-wrap gap-2.5 mb-10 border-b border-[#27272A] pb-4">
           {HARDWARE_TABS.map((tab, idx) => {
             const isActive = activeTabIdx === idx;
-            const labels = [
-              isAr ? 'تسجيل الطلبات في ثوانٍ' : 'Ring Up Orders in Seconds',
-              isAr ? 'إرسال الطلبات مباشرة للمطبخ' : 'Fire Orders Straight to the Line',
-              isAr ? 'مخزون يحسب نفسه ذاتياً' : 'Stock that Counts Itself',
-              isAr ? 'قرارات ذكية وليست لوحات فقط' : 'Decisions, Not Just Dashboards',
-            ];
             return (
               <button
                 key={tab.id}
@@ -81,17 +76,17 @@ export const OperationsDarkCanvas: React.FC<OperationsDarkCanvasProps> = ({
           <div className="lg:col-span-5 flex flex-col gap-6">
             <div>
               <span className="inline-block px-3 py-1 rounded-md bg-[#0F172A] text-[#F97316] text-[11px] font-bold uppercase tracking-wider mb-3 font-heading border border-orange-500/20">
-                {isAr ? currentTab.badgeAr : currentTab.badge}
+                {currentTab.badge}
               </span>
               <h3 className="text-[24px] md:text-[30px] leading-[32px] md:leading-[38px] text-white font-bold mb-4 font-heading">
-                {isAr ? currentTab.titleAr : currentTab.title}
+                {currentTab.title}
               </h3>
               <p className="text-[15px] md:text-[16px] leading-[24px] text-[#A1A1AA] mb-6">
-                {isAr ? currentTab.descAr : currentTab.desc}
+                {currentTab.desc}
               </p>
 
               <ul className="flex flex-col gap-4 text-sm text-stone-200">
-                {(isAr ? currentTab.pointsAr : currentTab.points).map((pt, pIdx) => (
+                {currentTab.points.map((pt, pIdx) => (
                   <li key={pIdx} className="flex items-start gap-3">
                     <CheckCircle2 className="w-5 h-5 text-[#F97316] shrink-0 mt-0.5" />
                     <span className="leading-snug">{pt}</span>
@@ -107,8 +102,8 @@ export const OperationsDarkCanvas: React.FC<OperationsDarkCanvasProps> = ({
                 id="ops-explore-hardware-btn"
               >
                 <Terminal className="w-4 h-4" />
-                <span>{isAr ? 'تجربة هذه الميزة في النظام' : 'Test Module in Live Terminal'}</span>
-                <ChevronRight className={`w-4 h-4 ${isAr ? 'rotate-180' : ''}`} />
+                <span>Test Module in Live Terminal</span>
+                <ChevronRight className="w-4 h-4" />
               </button>
               <span className="text-xs text-[#A1A1AA]">
                 iOS • Android • Windows compatible
@@ -132,13 +127,11 @@ export const OperationsDarkCanvas: React.FC<OperationsDarkCanvasProps> = ({
                     <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
                   </span>
                   <span className="text-xs sm:text-sm font-semibold text-white">
-                    {isAr
-                      ? 'الكاشير النشط #01 — الدفع السريع مفعّل'
-                      : 'Active Register #01 — Kiosk Fast Pay Enabled'}
+                    Active Register #01 — Fast Pay & UPI Enabled
                   </span>
                 </div>
                 <span className="text-[11px] font-bold uppercase tracking-wider text-[#F97316] font-heading">
-                  {isAr ? 'استجابة أقل من ثانية' : 'Sub-second Latency'}
+                  Sub-second Latency
                 </span>
               </div>
             </div>
@@ -152,7 +145,7 @@ export const OperationsDarkCanvas: React.FC<OperationsDarkCanvasProps> = ({
               5,000+
             </span>
             <span className="text-xs font-semibold text-[#A1A1AA] uppercase tracking-wider mt-2">
-              {isAr ? 'منفذ نشط' : 'Active Outlets'}
+              Active Outlets
             </span>
           </div>
 
@@ -161,7 +154,7 @@ export const OperationsDarkCanvas: React.FC<OperationsDarkCanvasProps> = ({
               25+
             </span>
             <span className="text-xs font-semibold text-[#A1A1AA] uppercase tracking-wider mt-2">
-              {isAr ? 'دولة حول العالم' : 'Countries Scaled'}
+              Countries Scaled
             </span>
           </div>
 
@@ -170,7 +163,7 @@ export const OperationsDarkCanvas: React.FC<OperationsDarkCanvasProps> = ({
               99.98%
             </span>
             <span className="text-xs font-semibold text-[#A1A1AA] uppercase tracking-wider mt-2">
-              {isAr ? 'جاهزية السحابة SLA' : 'SLA Cloud Uptime'}
+              SLA Cloud Uptime
             </span>
           </div>
 
@@ -179,7 +172,7 @@ export const OperationsDarkCanvas: React.FC<OperationsDarkCanvasProps> = ({
               24/7/365
             </span>
             <span className="text-xs font-semibold text-[#A1A1AA] uppercase tracking-wider mt-2">
-              {isAr ? 'دعم فني إقليمي' : 'Regional Support'}
+              Regional Support
             </span>
           </div>
         </div>

@@ -3,21 +3,19 @@ import { Language, HubTab } from '../types';
 import { Cloud, Send, ShieldCheck, Check } from 'lucide-react';
 
 interface FooterProps {
-  lang: Language;
+  lang?: Language;
   onLaunchHubTab: (tab: HubTab) => void;
   onOpenBookDemo: () => void;
   onOpenApiModal: () => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({
-  lang,
   onLaunchHubTab,
   onOpenBookDemo,
   onOpenApiModal,
 }) => {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
-  const isAr = lang === 'ar';
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,26 +40,22 @@ export const Footer: React.FC<FooterProps> = ({
               </span>
             </div>
             <p className="text-sm text-[#A1A1AA] max-w-md leading-relaxed">
-              {isAr
-                ? 'المنظومة السحابية الرائدة لإدارة نقاط البيع، والمخزون، وتطبيقات التوصيل، والمحاسبة المتوافقة مع زاتكا لسلاسل المطاعم ومتاجر التجزئة الحديثة.'
-                : 'The premier cloud infrastructure powering high-velocity POS, inventory recipe depletion, omnichannel delivery aggregators, and ZATCA tax compliance for modern chains.'}
+              The premier cloud infrastructure powering high-velocity POS, live kitchen routing, automatic inventory depletion, UPI payments, and Indian GST compliance for modern food and retail chains.
             </p>
           </div>
 
           <div className="lg:col-span-6 flex flex-col justify-center">
             <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-2 font-heading">
-              {isAr ? 'النشرة المعمارية والتقنية' : 'Retail Engineering & Insights'}
+              Retail Engineering & Insights
             </h4>
             <p className="text-xs text-[#A1A1AA] mb-4">
-              {isAr
-                ? 'اشترك للحصول على آخر تحديثات أنظمة زاتكا، وهندسة المطاعم، وتقنيات الكاشير السحابي.'
-                : 'Monthly updates on ZATCA Phase 2 compliance, menu engineering, and cloud POS architecture.'}
+              Monthly engineering insights on Indian GST e-invoicing, omnichannel routing, and cloud POS architecture.
             </p>
 
             {subscribed ? (
               <div className="flex items-center gap-2 p-3 rounded-xl bg-emerald-950/80 border border-emerald-500/40 text-emerald-300 text-sm font-semibold">
                 <Check className="w-4 h-4 text-emerald-400" />
-                <span>{isAr ? 'تم الاشتراك بنجاح! مرحباً بك معنا.' : 'Thank you for subscribing to PosBytz insights.'}</span>
+                <span>Thank you for subscribing to PosBytz insights.</span>
               </div>
             ) : (
               <form onSubmit={handleSubscribe} className="flex gap-2 max-w-md">
@@ -69,7 +63,7 @@ export const Footer: React.FC<FooterProps> = ({
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder={isAr ? 'أدخل بريدك الإلكتروني المؤسسي' : 'Enter your work email'}
+                  placeholder="Enter your work email"
                   required
                   className="flex-1 px-4 py-2.5 rounded-xl bg-stone-900 border border-stone-800 text-sm text-white placeholder-stone-500 focus:outline-none focus:border-[#F97316]"
                   id="newsletter-email-input"
@@ -79,7 +73,7 @@ export const Footer: React.FC<FooterProps> = ({
                   className="px-5 py-2.5 rounded-xl bg-[#F97316] text-white font-semibold text-sm hover:bg-[#EA580C] transition-all flex items-center gap-2 shrink-0 cursor-pointer"
                   id="newsletter-submit-btn"
                 >
-                  <span>{isAr ? 'اشتراك' : 'Join'}</span>
+                  <span>Join</span>
                   <Send className="w-3.5 h-3.5" />
                 </button>
               </form>
@@ -91,7 +85,7 @@ export const Footer: React.FC<FooterProps> = ({
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-12 text-sm text-[#A1A1AA]">
           <div>
             <h5 className="text-xs font-bold text-white uppercase tracking-wider mb-4 font-heading">
-              {isAr ? 'المنتجات والأنظمة' : 'Core Modules'}
+              Core Modules
             </h5>
             <ul className="flex flex-col gap-2.5">
               <li>
@@ -123,7 +117,7 @@ export const Footer: React.FC<FooterProps> = ({
                   onClick={() => onLaunchHubTab('zatca')}
                   className="hover:text-[#F97316] transition-colors text-left"
                 >
-                  ZATCA Phase 2 FATOORA
+                  Indian GST & E-Invoicing
                 </button>
               </li>
               <li>
@@ -139,7 +133,7 @@ export const Footer: React.FC<FooterProps> = ({
 
           <div>
             <h5 className="text-xs font-bold text-white uppercase tracking-wider mb-4 font-heading">
-              {isAr ? 'قطاعات الأعمال' : 'Solutions'}
+              Solutions
             </h5>
             <ul className="flex flex-col gap-2.5">
               <li>
@@ -164,7 +158,7 @@ export const Footer: React.FC<FooterProps> = ({
               </li>
               <li>
                 <button onClick={onOpenBookDemo} className="hover:text-white transition-colors text-left">
-                  Boutique Retail & Apparel
+                  Cloud Kitchens & QSR
                 </button>
               </li>
             </ul>
@@ -172,31 +166,31 @@ export const Footer: React.FC<FooterProps> = ({
 
           <div>
             <h5 className="text-xs font-bold text-white uppercase tracking-wider mb-4 font-heading">
-              {isAr ? 'الامتثال والأمان' : 'Security & Trust'}
+              Security & Trust
             </h5>
             <ul className="flex flex-col gap-2.5">
               <li className="flex items-center gap-1.5 text-emerald-400">
                 <ShieldCheck className="w-3.5 h-3.5" />
-                <span>ZATCA Phase 2 Approved</span>
+                <span>GST E-Invoice & B2C QR Verified</span>
               </li>
               <li>
-                <span>UAE FTA Tax Compliant</span>
+                <span>FSSAI Compliance Ready</span>
               </li>
               <li>
                 <span>PCI-DSS Level 1 Certified</span>
               </li>
               <li>
-                <span>SOC 2 Type II Audited</span>
+                <span>RBI Digital Payment Compliant</span>
               </li>
               <li>
-                <span>GCC Local Cloud Residency</span>
+                <span>ISO 27001 Cloud Infrastructure</span>
               </li>
             </ul>
           </div>
 
           <div>
             <h5 className="text-xs font-bold text-white uppercase tracking-wider mb-4 font-heading">
-              {isAr ? 'المطورين والمصادر' : 'Developers'}
+              Developers
             </h5>
             <ul className="flex flex-col gap-2.5">
               <li>
@@ -238,7 +232,7 @@ export const Footer: React.FC<FooterProps> = ({
         {/* Bottom Copyright & Legal Links */}
         <div className="pt-8 border-t border-[#27272A] flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-[#A1A1AA]">
           <div>
-            © {new Date().getFullYear()} PosBytz Cloud ERP Inc. All rights reserved. Built for retail & restaurant excellence.
+            © {new Date().getFullYear()} PosBytz Cloud ERP. Designed & Architected by <span className="text-white font-semibold">Pawan Patil • Team CodeX</span>. All rights reserved.
           </div>
 
           <div className="flex items-center gap-6">

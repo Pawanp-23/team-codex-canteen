@@ -1,19 +1,17 @@
 import React, { useState } from 'react';
 import { Language } from '../types';
 import { FAQS } from '../data/content';
-import { ChevronDown, MessageSquare, Headphones } from 'lucide-react';
+import { ChevronDown, Headphones } from 'lucide-react';
 
 interface FAQSectionProps {
-  lang: Language;
+  lang?: Language;
   onOpenBookDemo: () => void;
 }
 
 export const FAQSection: React.FC<FAQSectionProps> = ({
-  lang,
   onOpenBookDemo,
 }) => {
   const [openIdx, setOpenIdx] = useState<number | null>(0);
-  const isAr = lang === 'ar';
 
   const toggle = (idx: number) => {
     setOpenIdx(openIdx === idx ? null : idx);
@@ -24,15 +22,13 @@ export const FAQSection: React.FC<FAQSectionProps> = ({
       <div className="max-w-[1280px] mx-auto px-4 md:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="text-[11px] font-bold text-[#F97316] uppercase tracking-wider block mb-2 font-heading">
-            {isAr ? 'إجابات واضحة ومباشرة' : 'Clear Answers'}
+            Clear Answers
           </span>
           <h2 className="text-[28px] md:text-[40px] leading-[34px] md:leading-[48px] font-bold text-[#1a1b22] tracking-tight font-heading">
-            {isAr ? 'الأسئلة الشائعة' : 'Frequently Asked Questions'}
+            Frequently Asked Questions
           </h2>
           <p className="mt-4 text-[16px] md:text-[18px] leading-[26px] md:leading-[28px] text-[#52525B]">
-            {isAr
-              ? 'كل ما تحتاج لمعرفته حول البنية السحابية، ومرونة الأجهزة، والعمل دون اتصال، والامتثال للأنظمة الحكومية.'
-              : 'Everything you need to know about cloud architecture, hardware flexibility, offline resilience, and regulatory compliance.'}
+            Everything you need to know about cloud architecture, hardware flexibility, offline resilience, and Indian GST regulatory compliance.
           </p>
         </div>
 
@@ -52,7 +48,7 @@ export const FAQSection: React.FC<FAQSectionProps> = ({
                     id={`faq-btn-${idx}`}
                   >
                     <span className="text-[16px] md:text-[17px] font-heading leading-snug">
-                      {isAr ? faq.questionAr : faq.question}
+                      {faq.question}
                     </span>
                     <div
                       className={`w-8 h-8 rounded-full bg-white flex items-center justify-center shrink-0 border border-stone-200 transition-transform duration-200 ${
@@ -65,7 +61,7 @@ export const FAQSection: React.FC<FAQSectionProps> = ({
 
                   {isOpen && (
                     <div className="px-5 pb-6 md:px-6 md:pb-6 text-[15px] leading-[25px] text-[#52525B] border-t border-stone-200/60 pt-4 animate-in fade-in duration-150">
-                      {isAr ? faq.answerAr : faq.answer}
+                      {faq.answer}
                     </div>
                   )}
                 </div>
@@ -81,15 +77,11 @@ export const FAQSection: React.FC<FAQSectionProps> = ({
               </div>
 
               <h3 className="text-xl font-bold mb-3 font-heading text-white">
-                {isAr
-                  ? 'هل لا تزال لديك استفسارات فنية معينة؟'
-                  : 'Still have architectural questions?'}
+                Still have architectural questions?
               </h3>
 
               <p className="text-sm leading-relaxed text-stone-300 mb-6">
-                {isAr
-                  ? 'تحدث مباشرة مع خبراء الحلول المؤسسية لدينا للحصول على تقييم مخصص لتدفق العمليات في فروعك.'
-                  : 'Speak directly with our enterprise solutions architects for a tailored workflow audit of your outlets.'}
+                Speak directly with our enterprise solutions architects for a tailored workflow audit of your outlets.
               </p>
             </div>
 
@@ -99,12 +91,12 @@ export const FAQSection: React.FC<FAQSectionProps> = ({
                 className="w-full py-3 rounded-full bg-[#F97316] text-white font-semibold text-sm hover:bg-[#EA580C] transition-all shadow-md text-center"
                 id="faq-schedule-call-btn"
               >
-                {isAr ? 'حجز جلسة استشارية متخصصة' : 'Schedule Architecture Call'}
+                Schedule Architecture Call
               </button>
 
               <div className="flex items-center justify-center gap-2 text-xs text-stone-400 mt-2">
                 <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
-                <span>{isAr ? 'متوسط الرد: أقل من 15 دقيقة' : 'Avg response: under 15 minutes'}</span>
+                <span>Avg response: under 15 minutes</span>
               </div>
             </div>
           </div>

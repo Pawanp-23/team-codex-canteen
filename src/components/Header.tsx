@@ -3,23 +3,19 @@ import { Language, AppView, HubTab } from '../types';
 import {
   Cloud,
   ChevronDown,
-  Globe,
   User,
-  Sparkles,
   Menu,
   X,
   Store,
   Layers,
-  FileText,
-  CreditCard,
   ChefHat,
   BarChart3,
   ShieldCheck,
 } from 'lucide-react';
 
 interface HeaderProps {
-  lang: Language;
-  onToggleLang: (newLang: Language) => void;
+  lang?: Language;
+  onToggleLang?: (newLang: Language) => void;
   activeView: AppView;
   onSelectView: (view: AppView) => void;
   onOpenBookDemo: () => void;
@@ -28,8 +24,6 @@ interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = ({
-  lang,
-  onToggleLang,
   activeView,
   onSelectView,
   onOpenBookDemo,
@@ -40,8 +34,6 @@ export const Header: React.FC<HeaderProps> = ({
   const [productsOpen, setProductsOpen] = useState(false);
   const [solutionsOpen, setSolutionsOpen] = useState(false);
   const [integrationsOpen, setIntegrationsOpen] = useState(false);
-
-  const isAr = lang === 'ar';
 
   const handleLaunchTerminal = (tab: HubTab = 'pos') => {
     onSelectView('live-hub');
@@ -85,7 +77,7 @@ export const Header: React.FC<HeaderProps> = ({
                   : 'text-stone-600 hover:text-stone-900'
               }`}
             >
-              {isAr ? 'صفحة النظام' : 'Product Tour'}
+              Product Tour
             </button>
             <button
               onClick={() => onSelectView('order-system')}
@@ -95,7 +87,7 @@ export const Header: React.FC<HeaderProps> = ({
                   : 'text-stone-600 hover:text-stone-900'
               }`}
             >
-              <span>📋 {isAr ? 'بوابة الطلبات' : 'Order Portal'}</span>
+              <span>📋 Order Portal</span>
             </button>
             <button
               onClick={() => handleLaunchTerminal('pos')}
@@ -109,7 +101,7 @@ export const Header: React.FC<HeaderProps> = ({
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </span>
-              <span>{isAr ? '⚡ لوحة ERP' : '⚡ Live ERP'}</span>
+              <span>⚡ Live ERP</span>
             </button>
           </div>
         </div>
@@ -126,7 +118,7 @@ export const Header: React.FC<HeaderProps> = ({
               className="text-[14px] font-semibold text-stone-700 hover:text-[#F97316] transition-colors flex items-center gap-1 py-1"
               id="nav-products-btn"
             >
-              <span>{isAr ? 'المنتجات' : 'Products'}</span>
+              <span>Products</span>
               <ChevronDown
                 className={`w-4 h-4 transition-transform duration-200 ${
                   productsOpen ? 'rotate-180 text-[#F97316]' : ''
@@ -162,7 +154,7 @@ export const Header: React.FC<HeaderProps> = ({
                     <div className="text-sm font-bold text-stone-900 group-hover:text-emerald-700">
                       Kitchen Display (KDS)
                     </div>
-                    <div className="text-xs text-stone-500">Talabat & line routing</div>
+                    <div className="text-xs text-stone-500">Zomato, Swiggy & dine-in routing</div>
                   </div>
                 </button>
 
@@ -190,10 +182,10 @@ export const Header: React.FC<HeaderProps> = ({
                   </div>
                   <div>
                     <div className="text-sm font-bold text-stone-900 group-hover:text-rose-700 flex items-center gap-1.5">
-                      <span>ZATCA Phase 2 FATOORA</span>
-                      <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-rose-100 text-rose-800 uppercase">KSA</span>
+                      <span>Indian GST & E-Invoicing</span>
+                      <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 uppercase">India</span>
                     </div>
-                    <div className="text-xs text-stone-500">Cryptographic clearance</div>
+                    <div className="text-xs text-stone-500">Automated CGST/SGST & B2C QR</div>
                   </div>
                 </button>
 
@@ -225,7 +217,7 @@ export const Header: React.FC<HeaderProps> = ({
               className="text-[14px] font-semibold text-stone-700 hover:text-[#F97316] transition-colors flex items-center gap-1 py-1"
               id="nav-solutions-btn"
             >
-              <span>{isAr ? 'الحلول' : 'Solutions'}</span>
+              <span>Solutions</span>
               <ChevronDown
                 className={`w-4 h-4 transition-transform duration-200 ${
                   solutionsOpen ? 'rotate-180 text-[#F97316]' : ''
@@ -241,7 +233,7 @@ export const Header: React.FC<HeaderProps> = ({
                   }}
                   className="p-2 rounded-lg text-left text-sm font-medium text-stone-700 hover:bg-stone-50 hover:text-stone-900"
                 >
-                  {isAr ? 'المطاعم والمقاهي' : 'Restaurants & Specialty Cafes'}
+                  Restaurants & Specialty Cafes
                 </button>
                 <button
                   onClick={() => {
@@ -250,7 +242,7 @@ export const Header: React.FC<HeaderProps> = ({
                   }}
                   className="p-2 rounded-lg text-left text-sm font-medium text-stone-700 hover:bg-stone-50 hover:text-stone-900"
                 >
-                  {isAr ? 'الأزياء ومتاجر التجزئة' : 'Retail & Fashion Stores'}
+                  Retail & Fashion Stores
                 </button>
                 <button
                   onClick={() => {
@@ -259,7 +251,7 @@ export const Header: React.FC<HeaderProps> = ({
                   }}
                   className="p-2 rounded-lg text-left text-sm font-medium text-stone-700 hover:bg-stone-50 hover:text-stone-900"
                 >
-                  {isAr ? 'السلاسل المتعددة والفرنشايز' : 'Multi-Outlet Franchises'}
+                  Multi-Outlet Franchises
                 </button>
                 <button
                   onClick={() => {
@@ -268,7 +260,7 @@ export const Header: React.FC<HeaderProps> = ({
                   }}
                   className="p-2 rounded-lg text-left text-sm font-medium text-stone-700 hover:bg-stone-50 hover:text-stone-900"
                 >
-                  {isAr ? 'السوبرماركت والتموينات' : 'Supermarkets & FMCG'}
+                  Supermarkets & FMCG
                 </button>
               </div>
             )}
@@ -284,7 +276,7 @@ export const Header: React.FC<HeaderProps> = ({
               className="text-[14px] font-semibold text-stone-700 hover:text-[#F97316] transition-colors flex items-center gap-1 py-1"
               id="nav-integrations-btn"
             >
-              <span>{isAr ? 'التكاملات' : 'Integrations'}</span>
+              <span>Integrations</span>
               <ChevronDown
                 className={`w-4 h-4 transition-transform duration-200 ${
                   integrationsOpen ? 'rotate-180 text-[#F97316]' : ''
@@ -294,13 +286,13 @@ export const Header: React.FC<HeaderProps> = ({
             {integrationsOpen && (
               <div className="absolute top-full left-0 w-64 p-3 bg-white rounded-2xl shadow-[0_12px_32px_-4px_rgba(15,23,42,0.12)] border border-stone-100 flex flex-col gap-1 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
                 <div className="px-2 py-1 text-[11px] font-bold text-stone-400 uppercase tracking-wider">
-                  {isAr ? 'تكاملات شائعة' : 'Certified Connectors'}
+                  Certified Connectors
                 </div>
                 <button
                   onClick={() => handleLaunchTerminal('zatca')}
                   className="p-2 rounded-lg text-left text-sm font-medium text-stone-700 hover:bg-emerald-50 hover:text-emerald-800 flex items-center justify-between"
                 >
-                  <span>ZATCA Phase 2 E-Invoicing</span>
+                  <span>GST & E-Invoicing Rails</span>
                   <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
                 </button>
                 <button
@@ -312,7 +304,7 @@ export const Header: React.FC<HeaderProps> = ({
                   }}
                   className="p-2 rounded-lg text-left text-sm font-medium text-stone-700 hover:bg-stone-50"
                 >
-                  PayTabs & Tabby BNPL
+                  Razorpay, Paytm & UPI QR
                 </button>
                 <button
                   onClick={() => {
@@ -323,7 +315,7 @@ export const Header: React.FC<HeaderProps> = ({
                   }}
                   className="p-2 rounded-lg text-left text-sm font-medium text-stone-700 hover:bg-stone-50"
                 >
-                  Talabat, Deliveroo & Jahez
+                  Zomato, Swiggy & Dunzo
                 </button>
                 <button
                   onClick={() => {
@@ -334,7 +326,7 @@ export const Header: React.FC<HeaderProps> = ({
                   }}
                   className="p-2 rounded-lg text-left text-sm font-medium text-stone-700 hover:bg-stone-50"
                 >
-                  Shopify & WooCommerce
+                  Shopify, WooCommerce & ONDC
                 </button>
               </div>
             )}
@@ -348,7 +340,7 @@ export const Header: React.FC<HeaderProps> = ({
             }}
             className="text-[14px] font-semibold text-stone-700 hover:text-[#F97316] transition-colors"
           >
-            {isAr ? 'الأسعار' : 'Pricing'}
+            Pricing
           </button>
 
           <button
@@ -359,75 +351,47 @@ export const Header: React.FC<HeaderProps> = ({
             }}
             className="text-[14px] font-semibold text-stone-700 hover:text-[#F97316] transition-colors"
           >
-            {isAr ? 'المصادر والقصص' : 'Resources'}
+            Resources
           </button>
         </nav>
 
-        {/* Action Controls & Language Switcher */}
-        <div className="flex items-center gap-3">
-          {/* Creator Attribution Badge */}
-          <div className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-stone-100 border border-stone-200 text-xs font-semibold text-stone-700 font-mono">
-            <span className="w-2 h-2 rounded-full bg-[#F97316]"></span>
-            <span>Pawan Patil • Team CodeX</span>
+        {/* Action Controls & Creator Attribution Badge */}
+        <div className="flex items-center gap-2.5 shrink-0">
+          {/* Creator Attribution Badge - Guaranteed Single Line, Never Squished */}
+          <div className="hidden lg:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#1a1b22] text-white text-xs font-semibold whitespace-nowrap shrink-0 shadow-sm border border-stone-800">
+            <span className="w-2 h-2 rounded-full bg-[#F97316] shrink-0 animate-pulse"></span>
+            <span className="font-mono tracking-tight text-white font-medium">
+              Pawan Patil • Team CodeX
+            </span>
           </div>
 
-          {/* Language Selector Button */}
-          <div className="flex items-center p-1 rounded-full bg-stone-200/60 text-xs font-semibold">
-            <button
-              onClick={() => onToggleLang('en')}
-              className={`px-2.5 py-1 rounded-full transition-all ${
-                !isAr
-                  ? 'bg-white text-stone-900 shadow-sm'
-                  : 'text-stone-600 hover:text-stone-900'
-              }`}
-              title="English"
-            >
-              EN
-            </button>
-            <button
-              onClick={() => onToggleLang('ar')}
-              className={`px-2.5 py-1 rounded-full transition-all ${
-                isAr
-                  ? 'bg-white text-stone-900 shadow-sm'
-                  : 'text-stone-600 hover:text-stone-900'
-              }`}
-              title="العربية"
-            >
-              العربية
-            </button>
+          {/* India Edition Status Pill */}
+          <div className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-xs font-bold text-emerald-800 whitespace-nowrap shrink-0">
+            <span>🇮🇳 India • ₹ INR</span>
           </div>
-
-          {/* Sign In Button */}
-          <button
-            onClick={onOpenSignIn}
-            className="hidden md:inline-flex px-4 py-2 rounded-full text-sm font-semibold text-stone-800 hover:text-[#F97316] hover:bg-stone-100 transition-colors"
-            id="sign-in-btn"
-          >
-            {isAr ? 'تسجيل الدخول' : 'Sign In'}
-          </button>
 
           {/* Book a Demo CTA */}
           <button
             onClick={onOpenBookDemo}
-            className="inline-flex items-center justify-center px-5 py-2.5 rounded-full bg-[#F97316] text-white font-semibold text-sm shadow-[0_8px_20px_-2px_rgba(249,115,22,0.35)] hover:bg-[#EA580C] transition-all transform hover:-translate-y-0.5 active:translate-y-0"
+            className="inline-flex items-center justify-center px-4 py-2 rounded-full bg-[#F97316] text-white font-bold text-xs whitespace-nowrap shadow-[0_6px_16px_-2px_rgba(249,115,22,0.35)] hover:bg-[#EA580C] transition-all transform hover:-translate-y-0.5 active:translate-y-0 shrink-0"
             id="book-demo-btn"
           >
-            {isAr ? 'حجز عرض تجريبي' : 'Book a Demo'}
+            Book Demo
           </button>
 
           {/* Avatar Icon */}
           <button
             onClick={() => handleLaunchTerminal('pos')}
-            className="w-9 h-9 rounded-full bg-[#9d4300] text-white flex items-center justify-center shrink-0 hover:bg-[#783200] transition-colors shadow-sm"
-            title={isAr ? 'ملف المستخدم والفرع' : 'Terminal User Profile'}
+            className="w-8 h-8 rounded-full bg-[#9d4300] text-white flex items-center justify-center shrink-0 hover:bg-[#783200] transition-colors shadow-sm"
+            title="Terminal User Profile"
           >
-            <User className="w-4 h-4" />
+            <User className="w-3.5 h-3.5" />
           </button>
 
           {/* Mobile Menu Toggle Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="xl:hidden p-2 rounded-xl text-stone-700 hover:bg-stone-100"
+            className="xl:hidden p-2 rounded-xl text-stone-700 hover:bg-stone-100 shrink-0"
             aria-label="Toggle menu"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -440,7 +404,7 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="xl:hidden bg-white border-b border-stone-200 px-6 py-4 flex flex-col gap-3 shadow-xl animate-in fade-in slide-in-from-top-4">
           <div className="flex items-center justify-between pb-3 border-b border-stone-100">
             <span className="text-xs font-bold text-stone-400 uppercase tracking-wider">
-              {isAr ? 'وضع العرض' : 'Workspace Mode'}
+              Workspace Mode
             </span>
             <div className="flex items-center gap-2">
               <button
@@ -491,7 +455,7 @@ export const Header: React.FC<HeaderProps> = ({
             className="p-2 rounded-lg text-left text-sm font-semibold text-stone-800 hover:bg-rose-50 flex items-center gap-2"
           >
             <ShieldCheck className="w-4 h-4 text-rose-600" />
-            <span>ZATCA Phase 2 Clearance</span>
+            <span>GST & E-Invoicing Terminal</span>
           </button>
 
           <div className="pt-2 border-t border-stone-100 flex flex-col gap-2">
@@ -502,7 +466,7 @@ export const Header: React.FC<HeaderProps> = ({
               }}
               className="w-full py-2 rounded-xl text-center font-semibold text-stone-800 bg-stone-100"
             >
-              {isAr ? 'تسجيل الدخول' : 'Sign In'}
+              Sign In
             </button>
             <button
               onClick={() => {
@@ -511,7 +475,7 @@ export const Header: React.FC<HeaderProps> = ({
               }}
               className="w-full py-2.5 rounded-xl text-center font-semibold text-white bg-[#F97316] shadow-md"
             >
-              {isAr ? 'حجز عرض تجريبي' : 'Book a Demo'}
+              Book a Demo
             </button>
           </div>
         </div>

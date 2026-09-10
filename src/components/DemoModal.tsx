@@ -1,55 +1,45 @@
 import React, { useState, useEffect } from 'react';
 import { Language } from '../types';
-import { X, Play, Pause, CheckCircle, ArrowRight, Store, ChefHat, Layers, ShieldCheck } from 'lucide-react';
+import { X, Play, Pause, ArrowRight, Store, ChefHat, Layers, ShieldCheck } from 'lucide-react';
 
 interface DemoModalProps {
-  lang: Language;
+  lang?: Language;
   onClose: () => void;
   onLaunchLiveHub: () => void;
 }
 
 export const DemoModal: React.FC<DemoModalProps> = ({
-  lang,
   onClose,
   onLaunchLiveHub,
 }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
-  const isAr = lang === 'ar';
 
   const steps = [
     {
       title: '1. Fast POS Ring-Up',
-      titleAr: '1. تسجيل سريع عند الكاشير',
-      desc: 'Cashier rings up 2 Spanish Lattes and 1 Artisan Pistachio Croissant on the touch terminal in 1.4 seconds.',
-      descAr: 'يقوم الكاشير بتسجيل 2 سبانيش لاتيه و1 كرواسون فستق على شاشة اللمس في 1.4 ثانية فقط.',
+      desc: 'Cashier rings up 2 Cold Brews and 1 Paneer Tikka Gourmet Wrap on the touch terminal in 1.4 seconds.',
       icon: Store,
       badge: 'Front of House',
       accent: 'text-orange-500',
     },
     {
       title: '2. Kitchen Line Bump (KDS)',
-      titleAr: '2. توجيه الطلب لشاشة المطبخ (KDS)',
-      desc: 'Ticket automatically routes to the barista display station with target prep timer set to 3 minutes.',
-      descAr: 'يتم توجيه التذكرة فورياً إلى شاشة الباريستا مع مؤقت تحضير مستهدف 3 دقائق.',
+      desc: 'Ticket automatically routes to kitchen & beverage station with target prep timer set to 3 minutes.',
       icon: ChefHat,
       badge: 'Kitchen Routing',
       accent: 'text-emerald-500',
     },
     {
       title: '3. Recipe Ingredient Depletion',
-      titleAr: '3. خصم مباشر لمكونات الوصفة',
-      desc: 'Central inventory matrix decrements 36g espresso beans, 360ml whole milk, and 1 croissant dough instantly.',
-      descAr: 'مصفوفة المخزون تخصم تلقائياً 36 جرام بن إسبريسو و360 مل حليب وعجينة كرواسون واحدة.',
+      desc: 'Central inventory matrix decrements coffee beans, dairy milk, and fresh paneer stock instantly.',
       icon: Layers,
       badge: 'Warehouse Sync',
       accent: 'text-amber-500',
     },
     {
-      title: '4. ZATCA Phase 2 Clearance',
-      titleAr: '4. التوثيق الضريبي اللحظي (زاتكا)',
-      desc: 'Cryptographic stamp and Phase 2 compliant QR code are printed on receipt and transmitted to FATOORA.',
-      descAr: 'يتم طباعة الختم الرقمي وكود الاستجابة السريعة على الفاتورة ومزامنتها لحظياً مع منصة فاتورة.',
+      title: '4. Indian GST & UPI QR Invoicing',
+      desc: 'Digital signature, HSN-compliant 5% GST breakdown, and dynamic UPI QR code generated instantly on receipt.',
       icon: ShieldCheck,
       badge: 'Tax Clearance',
       accent: 'text-rose-500',
@@ -75,7 +65,7 @@ export const DemoModal: React.FC<DemoModalProps> = ({
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-[#F97316] animate-pulse"></span>
             <h3 className="font-bold text-base md:text-lg font-heading">
-              {isAr ? 'عرض توضيحي للمنظومة (دقيقتان)' : 'PosBytz 2-Minute Architectural Tour'}
+              PosBytz 2-Minute Architectural Tour
             </h3>
           </div>
           <button
@@ -139,10 +129,10 @@ export const DemoModal: React.FC<DemoModalProps> = ({
               </div>
               <div>
                 <h4 className="text-xl font-bold font-heading text-white">
-                  {isAr ? activeStep.titleAr : activeStep.title}
+                  {activeStep.title}
                 </h4>
                 <p className="text-sm text-stone-400 mt-2 leading-relaxed">
-                  {isAr ? activeStep.descAr : activeStep.desc}
+                  {activeStep.desc}
                 </p>
               </div>
             </div>
@@ -157,9 +147,7 @@ export const DemoModal: React.FC<DemoModalProps> = ({
         {/* Footer Actions */}
         <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
           <span className="text-xs text-stone-400">
-            {isAr
-              ? 'تريد تجربة إدخال طلب حقيقي؟'
-              : 'Want to ring up real orders yourself?'}
+            Want to ring up real orders yourself?
           </span>
 
           <div className="flex items-center gap-3 w-full sm:w-auto">
@@ -167,7 +155,7 @@ export const DemoModal: React.FC<DemoModalProps> = ({
               onClick={onClose}
               className="w-full sm:w-auto px-5 py-2.5 rounded-full bg-stone-900 text-stone-300 hover:text-white text-xs font-semibold"
             >
-              {isAr ? 'إغلاق' : 'Close'}
+              Close
             </button>
             <button
               onClick={() => {
@@ -176,7 +164,7 @@ export const DemoModal: React.FC<DemoModalProps> = ({
               }}
               className="w-full sm:w-auto px-6 py-2.5 rounded-full bg-[#F97316] text-white text-xs font-bold hover:bg-[#EA580C] shadow-lg flex items-center justify-center gap-2 cursor-pointer"
             >
-              <span>{isAr ? 'فتح المحطة المباشرة' : 'Launch Interactive Terminal'}</span>
+              <span>Launch Interactive Terminal</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </button>
           </div>
