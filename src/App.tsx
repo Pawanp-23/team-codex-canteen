@@ -3,6 +3,7 @@ import { Language, AppView, HubTab } from './types';
 import { Header } from './components/Header';
 import { HeroSection } from './components/HeroSection';
 import { BrandStrip } from './components/BrandStrip';
+import { CoreOrderSystem } from './components/CoreOrderSystem';
 import { OperationsDarkCanvas } from './components/OperationsDarkCanvas';
 import { ERPModulesBento } from './components/ERPModulesBento';
 import { IntegrationsSection } from './components/IntegrationsSection';
@@ -58,19 +59,32 @@ export default function App() {
       />
 
       {/* Main View Router */}
-      {activeView === 'landing' ? (
+      {activeView === 'landing' && (
         <main className="pt-20">
-          {/* Hero Section */}
+          {/* Hero Section with Pawan Patil & Team CodeX Attribution */}
           <HeroSection
             lang={lang}
             onOpenBookDemo={() => setBookDemoOpen(true)}
             onOpenFreeTrial={() => setFreeTrialOpen(true)}
             onOpenVideoDemo={() => setVideoDemoOpen(true)}
             onLaunchLiveTerminal={() => handleLaunchLiveHubTab('pos')}
+            onOpenOrderSystem={() => {
+              const el = document.getElementById('core-order-system-block');
+              if (el) {
+                el.scrollIntoView({ behavior: 'smooth' });
+              } else {
+                setActiveView('order-system');
+              }
+            }}
           />
 
           {/* Trusted Brands Strip */}
           <BrandStrip lang={lang} />
+
+          {/* Core Evaluation Requirements Section (1-6) */}
+          <div id="core-order-system-block" className="py-10 bg-stone-50 border-y border-stone-200">
+            <CoreOrderSystem lang={lang} />
+          </div>
 
           {/* Core Operations Dark Canvas with Interactive Tabs */}
           <OperationsDarkCanvas
@@ -115,7 +129,18 @@ export default function App() {
             onOpenApiModal={() => setApiModalOpen(true)}
           />
         </main>
-      ) : (
+      )}
+
+      {activeView === 'order-system' && (
+        <div className="pt-20 min-h-[85vh]">
+          <CoreOrderSystem
+            lang={lang}
+            onReturnToHome={() => setActiveView('landing')}
+          />
+        </div>
+      )}
+
+      {activeView === 'live-hub' && (
         <div className="pt-20">
           <LiveERPHub
             lang={lang}

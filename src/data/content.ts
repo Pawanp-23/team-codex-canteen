@@ -400,6 +400,7 @@ export const SAMPLE_MENU_ITEMS: MenuItem[] = [
     category: 'beverages',
     price: 24.0,
     calories: '185 kcal',
+    quantityAvailable: 35,
     image:
       'https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=400&q=80',
     ingredients: [
@@ -415,6 +416,7 @@ export const SAMPLE_MENU_ITEMS: MenuItem[] = [
     category: 'beverages',
     price: 12.0,
     calories: '110 kcal',
+    quantityAvailable: 50,
     image:
       'https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=400&q=80',
     ingredients: [
@@ -431,6 +433,7 @@ export const SAMPLE_MENU_ITEMS: MenuItem[] = [
     category: 'food',
     price: 48.0,
     calories: '640 kcal',
+    quantityAvailable: 18,
     image:
       'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=400&q=80',
     ingredients: [
@@ -447,6 +450,7 @@ export const SAMPLE_MENU_ITEMS: MenuItem[] = [
     category: 'food',
     price: 26.0,
     calories: '380 kcal',
+    quantityAvailable: 25,
     image:
       'https://images.unsplash.com/photo-1576107232684-1279f3908594?auto=format&fit=crop&w=400&q=80',
     ingredients: [
@@ -462,6 +466,7 @@ export const SAMPLE_MENU_ITEMS: MenuItem[] = [
     category: 'desserts',
     price: 22.0,
     calories: '320 kcal',
+    quantityAvailable: 20,
     image:
       'https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=400&q=80',
     ingredients: [
@@ -477,6 +482,7 @@ export const SAMPLE_MENU_ITEMS: MenuItem[] = [
     category: 'desserts',
     price: 36.0,
     calories: '280 kcal',
+    quantityAvailable: 15,
     image:
       'https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?auto=format&fit=crop&w=400&q=80',
     ingredients: [
@@ -484,6 +490,51 @@ export const SAMPLE_MENU_ITEMS: MenuItem[] = [
       { name: 'Gluten-Free Granola', amount: '40g' },
       { name: 'Fresh Blueberries & Strawberries', amount: '50g' },
     ],
+  },
+];
+
+export const INITIAL_ORDER_RECORDS = [
+  {
+    id: 'ord-101',
+    orderNumber: 'ORD-9481',
+    customerName: 'Pawan Patil',
+    rollNo: 'CX-2026-089',
+    itemId: 'm-1',
+    itemName: 'Signature Spanish Latte',
+    itemNameAr: 'سبانيش لاتيه مميز',
+    itemPrice: 24.0,
+    quantity: 2,
+    totalAmount: 48.0,
+    status: 'confirmed' as const,
+    timestamp: 'Just now',
+  },
+  {
+    id: 'ord-102',
+    orderNumber: 'ORD-9480',
+    customerName: 'Aarav Sharma',
+    rollNo: 'CX-2026-042',
+    itemId: 'm-3',
+    itemName: 'Wagyu Truffle Smash Burger',
+    itemNameAr: 'برجر واغيو ترافل سماش',
+    itemPrice: 48.0,
+    quantity: 1,
+    totalAmount: 48.0,
+    status: 'preparing' as const,
+    timestamp: '4 mins ago',
+  },
+  {
+    id: 'ord-103',
+    orderNumber: 'ORD-9479',
+    customerName: 'Fatima Al-Zahra',
+    rollNo: 'CX-2026-115',
+    itemId: 'm-2',
+    itemName: 'Saffron Karak Chai',
+    itemNameAr: 'كرك أصلي بالزعفران',
+    itemPrice: 12.0,
+    quantity: 3,
+    totalAmount: 36.0,
+    status: 'ready' as const,
+    timestamp: '12 mins ago',
   },
 ];
 

@@ -13,6 +13,8 @@ import {
   Network,
   Banknote,
   Terminal,
+  Sparkles,
+  UtensilsCrossed,
 } from 'lucide-react';
 
 interface HeroSectionProps {
@@ -21,6 +23,7 @@ interface HeroSectionProps {
   onOpenFreeTrial: () => void;
   onOpenVideoDemo: () => void;
   onLaunchLiveTerminal: () => void;
+  onOpenOrderSystem?: () => void;
 }
 
 export const HeroSection: React.FC<HeroSectionProps> = ({
@@ -29,6 +32,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   onOpenFreeTrial,
   onOpenVideoDemo,
   onLaunchLiveTerminal,
+  onOpenOrderSystem,
 }) => {
   const isAr = lang === 'ar';
 
@@ -39,8 +43,15 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       <div className="pointer-events-none absolute top-1/3 -right-48 w-96 h-96 rounded-full bg-[#dae2fd]/40 blur-3xl"></div>
 
       <div className="max-w-[1280px] mx-auto px-4 md:px-6 lg:px-8 relative z-10">
-        {/* Eyebrow Pill */}
-        <div className="flex justify-center mb-6">
+        {/* Eyebrow Pills with Pawan Patil & Team Codex attribution */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#1A1B22] text-white border border-stone-800 shadow-sm text-xs">
+            <Sparkles className="w-3.5 h-3.5 text-[#F97316]" />
+            <span>
+              Engineered by <strong className="text-[#F97316]">Pawan Patil</strong> • <strong className="text-orange-200">Team CodeX</strong>
+            </span>
+          </div>
+
           <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#FFF7ED] text-[#9d4300] border border-orange-200/60 shadow-sm">
             <span className="flex h-2 w-2 relative">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#F97316] opacity-75"></span>
@@ -49,7 +60,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             <span className="text-[11px] font-bold uppercase tracking-wider font-heading">
               {isAr
                 ? 'نظام سحابي متكامل • موثوق من أكثر من 5,000 علامة تجارية في 25+ دولة'
-                : 'All-in-one Cloud ERP • Trusted by 5,000+ Brands Across 25+ Countries'}
+                : 'All-in-one Cloud ERP • Core Order & Stock System Active'}
             </span>
           </div>
         </div>
@@ -83,7 +94,18 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           </p>
 
           {/* CTA Action Cluster */}
-          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3.5">
+            {onOpenOrderSystem && (
+              <button
+                onClick={onOpenOrderSystem}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-[#1A1B22] text-white font-semibold text-sm shadow-md hover:bg-stone-800 transition-all border border-stone-700"
+                id="hero-order-portal-btn"
+              >
+                <UtensilsCrossed className="w-4 h-4 text-[#F97316]" />
+                <span>{isAr ? 'فتح بوابة الطلبات (كودكس)' : 'Open Order & Stock Portal (CodeX)'}</span>
+              </button>
+            )}
+
             <button
               onClick={onOpenFreeTrial}
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-[#F97316] text-white font-semibold text-sm shadow-[0_8px_20px_-2px_rgba(249,115,22,0.35)] hover:bg-[#EA580C] hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"

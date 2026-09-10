@@ -88,6 +88,16 @@ export const Header: React.FC<HeaderProps> = ({
               {isAr ? 'صفحة النظام' : 'Product Tour'}
             </button>
             <button
+              onClick={() => onSelectView('order-system')}
+              className={`px-3 py-1 rounded-full transition-all flex items-center gap-1 ${
+                activeView === 'order-system'
+                  ? 'bg-[#1A1B22] text-white shadow-sm'
+                  : 'text-stone-600 hover:text-stone-900'
+              }`}
+            >
+              <span>📋 {isAr ? 'بوابة الطلبات' : 'Order Portal'}</span>
+            </button>
+            <button
               onClick={() => handleLaunchTerminal('pos')}
               className={`px-3 py-1 rounded-full transition-all flex items-center gap-1.5 ${
                 activeView === 'live-hub'
@@ -99,7 +109,7 @@ export const Header: React.FC<HeaderProps> = ({
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </span>
-              <span>{isAr ? '⚡ لوحة التحكم المباشرة' : '⚡ Live ERP Hub'}</span>
+              <span>{isAr ? '⚡ لوحة ERP' : '⚡ Live ERP'}</span>
             </button>
           </div>
         </div>
@@ -355,6 +365,12 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* Action Controls & Language Switcher */}
         <div className="flex items-center gap-3">
+          {/* Creator Attribution Badge */}
+          <div className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-stone-100 border border-stone-200 text-xs font-semibold text-stone-700 font-mono">
+            <span className="w-2 h-2 rounded-full bg-[#F97316]"></span>
+            <span>Pawan Patil • Team CodeX</span>
+          </div>
+
           {/* Language Selector Button */}
           <div className="flex items-center p-1 rounded-full bg-stone-200/60 text-xs font-semibold">
             <button

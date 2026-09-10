@@ -1,6 +1,6 @@
 export type Language = 'en' | 'ar';
 
-export type AppView = 'landing' | 'live-hub';
+export type AppView = 'landing' | 'live-hub' | 'order-system';
 
 export type HubTab = 'pos' | 'kds' | 'inventory' | 'zatca' | 'analytics';
 
@@ -87,6 +87,22 @@ export interface MenuItem {
   calories?: string;
   image: string;
   ingredients: { name: string; amount: string }[];
+  quantityAvailable: number;
+}
+
+export interface OrderRecord {
+  id: string;
+  orderNumber: string;
+  customerName: string;
+  rollNo: string;
+  itemId: string;
+  itemName: string;
+  itemNameAr?: string;
+  itemPrice: number;
+  quantity: number;
+  totalAmount: number;
+  status: 'confirmed' | 'preparing' | 'ready' | 'completed';
+  timestamp: string;
 }
 
 export interface CartItem extends MenuItem {
